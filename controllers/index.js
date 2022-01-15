@@ -9,7 +9,7 @@ exports.display_paragraph = function(req, res, next) {
   
   // displayParagraph.displayParagraph();
   res.render('index', { ptext: displayParagraph.displayParagraph()});
-  // res.redirect('/');
+  
 };
 
 // exports.submit_paragraph = function(req, res, next) {
