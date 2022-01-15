@@ -3,14 +3,14 @@ block content
 
   h2 -Some Story Title- <!-- insert from db -->
   p Mock story opening paragraph. This will be the first paragraph of the new story. I'll have to decide on the character count per paragraph. <!-- insert from db -->
-  div(id ="display_paragraph")
+  p #{ptext} 
   form(action="/", method="POST")
     p Add to story
     textarea(name="paragraph_input", cols="30", rows="8")
     br
     button(type="submit") Submit
 
-//- script(src="../public/javascripts/display-paragraph.js") // reference in layout.pug
+//- script(src="../public/javascripts/display-paragraph.js")
 
   //- h2 Start a story
   //- form(action="/", method="POST")
