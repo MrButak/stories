@@ -5,7 +5,7 @@ exports.index = function(req, res, next) {
   };
 
 exports.submit_paragraph = function(req, res, next) {
-  console.log("Form Input", req.body.paragraph_input);
-  insertParagraph.insertParagraph();
+  let paragraph = req.body.paragraph_input;
+  insertParagraph.insertParagraph(paragraph);
   res.redirect('/');
 };
