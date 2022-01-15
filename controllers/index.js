@@ -1,5 +1,5 @@
-const insertParagraph = require("../public/javascripts/insert-paragraph");
-const displayParagraph = require("../public/javascripts/display-paragraph");
+const handle_paragraph = require("../public/javascripts/data/paragraph");
+
 
 exports.index = function(req, res, next) {
     res.render('index', { title: 'Express' });
@@ -7,8 +7,8 @@ exports.index = function(req, res, next) {
 
 exports.display_paragraph = function(req, res, next) {
   
-  // displayParagraph.displayParagraph();
-  res.render('index', { ptext: displayParagraph.displayParagraph()});
+  // handle_paragraph.handle_paragraph();
+  res.render('index', { ptext: handle_paragraph.displayParagraph()});
   
 };
 
