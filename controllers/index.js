@@ -10,8 +10,9 @@ exports.index = function(req, res, next) {
 exports.add_paragraph = function(req, res, next) {
   let paragraph_input = req.body.paragraph_input;
   paragraph.insertParagraph(paragraph_input);
-  res.render('index', { ptext: paragraph.displayParagraph()});
+  res.redirect('/')
 };
+
 
 // When a new paragraph is added
 // exports.add_paragraph = function(req, res, next) {

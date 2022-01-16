@@ -1,26 +1,11 @@
-// I need to do some double checks to make sure input is NOT NULL
 
 exports.insertParagraph = (paragraph) => {
     const Database = require('better-sqlite3');
     const db = new Database('controllers/stories.db');
-    const new_paragraph = db.prepare('INSERT INTO paragraphs (user_id, stories_id, content) VALUES (?)');
+    const new_paragraph = db.prepare('INSERT INTO paragraphs (user_id, stories_id, content) VALUES (?, ?, ?)');
     const values = new_paragraph.run(4, 1, paragraph);
     db.close();
     return;
-};
-
-// this function should display paragraph from database to appropriate story on the DOM
-
-exports.displayParagraph = () => {
-    
-    const Database = require('better-sqlite3');
-    const db = new Database('controllers/stories.db');
-    const current_paragraph = db.prepare('SELECT content FROM paragraphs WHERE story_id=1');
-    let p_value = current_paragraph.get();
-
-    db.close();
-    return(p_value.content)
-    
 };
 
 exports.displayAllParagraphs = () => {
@@ -35,6 +20,7 @@ exports.displayAllParagraphs = () => {
         all_p_arry.push(all_p_obj[i].content);
     };
     db.close();
+    
     return(all_p_arry)
     
     
