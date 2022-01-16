@@ -5,6 +5,7 @@ let index = require('../controllers/index');
 
 /* GET home page. */
 router.get('/', index.index);
+
 /* POST home page. */
 router.post('/', index.handle_paragraph);
 
