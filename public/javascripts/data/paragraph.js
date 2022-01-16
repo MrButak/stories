@@ -1,4 +1,6 @@
-
+// Function inserts new paragraph into the database
+// TODO:
+// 1. (user_id, stories_id) should contain current user and current story
 exports.insertParagraph = (paragraph) => {
     const Database = require('better-sqlite3');
     const db = new Database('controllers/stories.db');
@@ -7,6 +9,7 @@ exports.insertParagraph = (paragraph) => {
     db.close();
     return;
 };
+
 
 exports.displayAllParagraphs = () => {
     
