@@ -29,10 +29,13 @@ exports.displayAllParagraphs = () => {
     const db = new Database('controllers/stories.db');
 
     const all_paragraphs = db.prepare('SELECT content FROM paragraphs WHERE stories_id=1');
-    let p_value = all_paragraphs.get();
-    console.log(all_paragraphs.all());
+    let all_p_obj = all_paragraphs.all();
+    let all_p_arry = [];
+    for(let i = 0; i < all_p_obj.length; i++) {
+        all_p_arry.push(all_p_obj[i].content);
+    };
     db.close();
-    // return(p_value.content)
-    return;
+    return(all_p_arry)
+    
     
 };
