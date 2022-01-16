@@ -7,7 +7,7 @@ let index = require('../controllers/index');
 router.get('/', index.index);
 
 /* POST home page. */
-router.post('/', index.handle_paragraph);
+router.post('/', index.add_paragraph);
 
 
 module.exports = router;
