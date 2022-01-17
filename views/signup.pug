@@ -1,0 +1,22 @@
+extends layout 
+block content 
+    h1 Hey there buddy, Sign up
+    form(action='/signup' method='POST')
+        // user input
+        | Preferred Username:
+        br
+        input(type='text' name='username' placeholder='Username' required='')
+        br
+        br
+        |   &#x9;Password:
+        br
+        input(type='password' name='password' placeholder='Password' required='')
+        br
+        br
+        // submit button
+        input(type='submit' value='signup')
+        br
+        p= errorMessage
+        br
+        p Already a member, guy? 
+        a(href="/login") Sign in here

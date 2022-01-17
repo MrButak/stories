@@ -1,0 +1,18 @@
+// To insert a new story from a user
+
+INSERT INTO stories (title, user_id) 
+VALUES ("The Frist Title", 
+(SELECT id FROM users WHERE user_name LIKE "[*current user_name*]"));
+
+
+// To insert paragraph into a story
+
+INSERT INTO paragraphs (user_id, stories_id, content) 
+VALUES ((SELECT id FROM users WHERE user_name LIKE "[*current user_name*]"), 
+(SELECT id FROM stories WHERE id = [*current story id*]), 
+"This is the first paragraph to the first story!!! What happens next?");
+
+// To select all paragraphs from a stories id
+
+SELECT content FROM paragraphs 
+INNER JOIN stories ON stories_id = stories.id;
