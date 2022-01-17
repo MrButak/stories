@@ -5,22 +5,25 @@ exports.signUp = (username) => {
     
     const db = new Database('controllers/stories.db');
     const userStmt = db.prepare('SELECT user_name FROM users WHERE user_name = (?)');
-    // compare username to database to see if available
+
     const userNameValue = userStmt.get(username);
-    console.log(userNameValue)
-    // if the chosen username is not already in the database
+
+    // Compare username to database to see if it's available
     if(userNameValue == undefined) {
         db.close();
         return true
     };
+
     db.close();
     return false;
 };
 
+
 exports.writeUserToDatabase = (username, password) => {
+
     const db = new Database('controllers/stories.db');
     
-    // send password for encryption
+    // Send password to be hashed
     var encryptedPassword = encryption.encryptPassword(password);
 
     const newUser = db.prepare('INSERT INTO users (user_name, encrypted_password) VALUES (?, ?)');

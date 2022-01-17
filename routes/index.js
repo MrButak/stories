@@ -18,7 +18,4 @@ router.get('/signup', signUp.signUp);
 router.post('/signup', signUp.signUpUser)
 
 
-
-
-
 module.exports = router;

@@ -1,8 +1,11 @@
-// Function inserts new paragraph into the database
-// TODO:
-// 1. (user_id, stories_id) should contain current user and current story
+const Database = require('better-sqlite3');
+
+
+// Function writes paragraph to the database
 exports.insertParagraph = (paragraph) => {
-    const Database = require('better-sqlite3');
+
+    // TODO:
+    // 1. (user_id, stories_id) should contain current user and current story
     const db = new Database('controllers/stories.db');
     const new_paragraph = db.prepare('INSERT INTO paragraphs (user_id, stories_id, content) VALUES (?, ?, ?)');
     const values = new_paragraph.run(4, 1, paragraph);
@@ -10,21 +13,20 @@ exports.insertParagraph = (paragraph) => {
     return;
 };
 
-
+// Function gets all paragraphs in the database, stores them in array
 exports.displayAllParagraphs = () => {
     
-    const Database = require('better-sqlite3');
+    // TODO:
+    // 1. (stories_id) should contain the current story_id where the POST request was sent from
     const db = new Database('controllers/stories.db');
-
     const all_paragraphs = db.prepare('SELECT content FROM paragraphs WHERE stories_id=1');
     let all_p_obj = all_paragraphs.all();
     let all_p_arry = [];
+
     for(let i = 0; i < all_p_obj.length; i++) {
         all_p_arry.push(all_p_obj[i].content);
     };
     db.close();
     
     return(all_p_arry)
-    
-    
 };
