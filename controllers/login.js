@@ -13,6 +13,7 @@ exports.checkLogin = function(req, res, next) {
   if(logIn.tryLogin(user_name, password)) {
     res.redirect('/');
   }
-  res.redirect('/login')
+  // else render login page with error message
+  res.render('login', { errorMessage: "Wrong username and/or password. Try again" })
 
 };
