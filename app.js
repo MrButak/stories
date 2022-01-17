@@ -39,16 +39,6 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
-// session. currently cookie not appearing in browser
-app.set('trust proxy', 1) // trust first proxy
-const oneDay = 1000 * 60 * 60 * 24;
-app.use(session({
-    // name: 'session-id',
-    secret: "thisismysecrctekeyfhrgfgrfrty84fwir767",
-    saveUninitialized: true,
-    cookie: { maxAge: oneDay },
-    resave: false 
-}));
-// console.log(req.session)
+
 
 module.exports = app;

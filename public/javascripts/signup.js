@@ -5,9 +5,11 @@ exports.signUp = (username, password) => {
     const userStmt = db.prepare('SELECT user_name FROM users WHERE user_name = (?)');
     const userNameValue = userStmt.get(username);
     console.log(userNameValue)
+    // if the chosen username is not already in the database
     if(userNameValue != undefined) {
         // TODO:
-        // 1. recored username and password to database
+        // 1.  encrypt password
+        // 2.  write username and password to database
         return true
     };
     return false;

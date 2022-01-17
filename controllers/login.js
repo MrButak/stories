@@ -11,9 +11,11 @@ exports.checkLogin = function(req, res, next) {
   let password = req.body.password;
   // if login credentials are correct
   if(logIn.tryLogin(user_name, password)) {
+    // TODO:
+    // 1. figure out how to use express-session
     res.redirect('/');
   }
-  // else render login page with error message
+  // if username and/or password was incorrect
   res.render('login', { errorMessage: "Wrong username and/or password. Try again" })
 
 };

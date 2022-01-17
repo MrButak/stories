@@ -1,8 +1,9 @@
 const paragraph = require("../public/javascripts/data/paragraph");
 
+
 // render the array of paragraphs here
 exports.index = function(req, res, next) {
-  
+
   res.render('index', { ps: paragraph.displayAllParagraphs() });
 };
 
