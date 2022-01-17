@@ -4,6 +4,7 @@ var router = express.Router();
 let index = require('../controllers/index')
 /* GET home page. */
 router.get('/', index.index);
-// router.post('/', index.submit_paragraph);
+/* POST home page. */
+router.post('/', index.submit_paragraph);
 
 module.exports = router;
