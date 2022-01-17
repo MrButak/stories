@@ -21,5 +21,6 @@ exports.tryLogin = (username, password) => {
 
     let currentUserName = userNameValue.user_name; // valid user name
     console.log(`successfull login username: ${username} | password: ${password}`);
+    return true;
     
 }

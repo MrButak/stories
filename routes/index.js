@@ -5,6 +5,9 @@ let index = require('../controllers/index');
 let logIn = require('../controllers/login');
 let signUp = require('../controllers/signup')
 
+
+// console.log(req.session)
+
 /* GET home page. */
 router.get('/', index.index);
 /* POST home page. */

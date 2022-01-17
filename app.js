@@ -3,6 +3,7 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+var session = require('express-session'); // added
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
@@ -37,5 +38,17 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
+
+// session. currently cookie not appearing in browser
+app.set('trust proxy', 1) // trust first proxy
+const oneDay = 1000 * 60 * 60 * 24;
+app.use(session({
+    // name: 'session-id',
+    secret: "thisismysecrctekeyfhrgfgrfrty84fwir767",
+    saveUninitialized: true,
+    cookie: { maxAge: oneDay },
+    resave: false 
+}));
+// console.log(req.session)
 
 module.exports = app;
