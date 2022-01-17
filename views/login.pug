@@ -1,0 +1,21 @@
+extends layout 
+block content 
+    h1 Hey there guy. Login
+    form(action='http://127.0.0.1:3000/login' method='POST')
+        // user input
+        | Username:
+        br
+        input(type='text' name='username' placeholder='Username' required='')
+        br
+        br
+        |   &#x9;Password:
+        br
+        input(type='password' name='password' placeholder='Password' required='')
+        br
+        br
+        // submit button
+        input(type='submit' value='login')
+    br
+    br
+    p Not a member yet bubby? 
+    a(href="http://127.0.0.1:3000/signup") Sign up here
