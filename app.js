@@ -14,13 +14,19 @@ var app = express();
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
 
-// save user session. not working!!!!
-app.use(session({
-  secret: 'mysecretkey',
+// save user session
+var sess = {
+  secret: 'keyboard cat',
+  cookie: {},
   resave: false,
-  saveUninitialized: true,
-  cookie: { secure: true }
-}))
+  saveUninitialized: true
+}
+
+if (app.get('env') === 'production') {
+  app.set('trust proxy', 1) // trust first proxy
+  sess.cookie.secure = true // serve secure cookies
+}
+app.use(session(sess))
 
 app.use(logger('dev'));
 app.use(express.json());

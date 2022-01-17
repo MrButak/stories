@@ -3,8 +3,9 @@ block content
 
   h2 -Some Story Title- <!-- insert from db -->
   for para in ps
-    ul
-      li= para
+    each property in Object.keys(para)
+      ul
+        li= para["content"]
 
   form(action="/", method="POST")
     p Add to story
