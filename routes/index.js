@@ -14,8 +14,8 @@ router.get('/login', logIn.log_in);
 router.post('/login', logIn.checkLogin)
 
 // signup page
-router.get('/signup', signUp.sign_up);
-router.post('/signup', signUp.sign_up)
+router.get('/signup', signUp.signUp);
+router.post('/signup', signUp.signUpUser)
 
 
 

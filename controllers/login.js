@@ -1,18 +1,19 @@
-const logIn = require("../public/javascripts/login");
+const logIn = require("../public/javascripts/data/login");
+const encryption = require("../public/javascripts/encryption");
 
-
+// GET request
 exports.log_in = function(req, res, next) {
- 
   res.render('login');
 };
 
+// POST request
 exports.checkLogin = function(req, res, next) {
-  let user_name = req.body.username;
+  let username = req.body.username;
   let password = req.body.password;
-  // if login credentials are correct
-  if(logIn.tryLogin(user_name, password)) {
+  if(logIn.tryLogin(username, password)) {
     // TODO:
     // 1. figure out how to use express-session
+    // 2. assign some type of global object to this user with?
     res.redirect('/');
   }
   // if username and/or password was incorrect

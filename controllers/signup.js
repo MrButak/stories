@@ -1,12 +1,17 @@
-const signUp = require("../public/javascripts/signup");
+const signUp = require("../public/javascripts/data/signup");
 
-
-exports.sign_up = function(req, res, next) {
-  let user_name = req.body.username;
+exports.signUp = function(req, res, next) {
+  res.render('signup');
+}
+exports.signUpUser = function(req, res, next) {
+  let username = req.body.username;
   let password = req.body.password;
-  if(signUp.signUp(user_name, password)) {
-    res.redirect('login', { errorMessage: "Successfully signed up. Please log in."});
+  // if sign up successful, store credentials in database, then send user to login
+  if(signUp.signUp(username)) {
+    signUp.writeUserToDatabase(username, password)
+    res.redirect('login');
   }
+
   else {
     res.render('signup');
   }
