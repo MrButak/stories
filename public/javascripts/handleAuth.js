@@ -14,6 +14,7 @@ exports.notAuth = (req, res, next) => {
     next();
 };
 
+// can use this to restrict logged in users from login page
 exports.isAuth = (req, res, next) => {
     if(!req.session.isAuth) {
         next();
@@ -21,14 +22,16 @@ exports.isAuth = (req, res, next) => {
     res.redirect('/');
 };
 
+// as far as I can tell, res.locals can be passed to the view engine (pug)
+// also .locals is accessible only after this function 
+// it also seems assigning res.locals to req.session. only make it available
 exports.currentUser = (req, res, next) => {
-    // change the order of this if statement if it actually works
-    
-    if(res.session.userName) {
-        
-        res.locals.userName = req.session.userName;
+ 
+    if(!req.session.userName) {
+        res.locals.userName = null;
         next();
-    }
-    res.locals.userName = null;
+        
+    };
+    res.locals.userName = req.session.userName;
     next();
 };

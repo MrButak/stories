@@ -20,9 +20,9 @@ exports.checkLogin = function(req, res, next) {
 
     res.render('login', { errorMessage: "Wrong username and/or password. Try again" })
   }
-  // Writes to sessions.db user information
+  // Writes to sessions user information
   req.session.isAuth = true;
   req.session.userName = username;
-  console.log('Login successful.')
+  
   res.redirect('/');
 };

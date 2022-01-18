@@ -2,14 +2,21 @@ const Database = require('better-sqlite3');
 
 
 // Function writes paragraph to the database
-exports.insertParagraph = (paragraph) => {
+exports.insertParagraph = (paragraph, res, req) => {
 
     const db = new Database('public/javascripts/data/stories.db');
     // TODO:
-    // 1. (user_id, stories_id) should contain current user and current story
+    // 1. (stories_id) should contain current story
     
+    // Get current user_id
+    const currentUserName = req.locals.userName;
+    const userIdStmt = db.prepare('SELECT id FROM users WHERE user_name = (?)');
+    const userIdGet = userIdStmt.get(currentUserName);
+    const userId = userIdGet.id;
+    
+    // Write paragraph to database
     const new_paragraph = db.prepare('INSERT INTO paragraphs (user_id, stories_id, content) VALUES (?, ?, ?)');
-    const values = new_paragraph.run(1, 1, paragraph);
+    const values = new_paragraph.run(userId, 1, paragraph);
     db.close();
     return;
 };
