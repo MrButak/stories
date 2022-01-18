@@ -1,3 +1,4 @@
+const app = require("../app");
 const logIn = require("../public/javascripts/data/user");
 // const hashing = require("../public/javascripts/hashing");
 
@@ -19,9 +20,9 @@ exports.checkLogin = function(req, res, next) {
 
     res.render('login', { errorMessage: "Wrong username and/or password. Try again" })
   }
-
-  // TODO:
-  // 1. figure out how to use express-session
-  // 2. assign some type of global object to this user?
+  // Writes to sessions.db user information
+  req.session.isAuth = true;
+  req.session.userName = username;
+  console.log('Login successful.')
   res.redirect('/');
 };

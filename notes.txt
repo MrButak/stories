@@ -1,0 +1,137 @@
+express-validator // for validating forms
+dotenv // handling environment variables
+// can use the express-validator middleware as so: router.post('/signup', userValidation(), appController.post_register);
+
+
+
+
+example :
+
+// set in the root app.js file
+
+// this variable is set in the .env file
+SESSION_SECRET = Some very random string of characters
+
+import session from 'express-session';
+import connectSqlite from 'connect-sqlite3';
+import dotenv from 'dotenv/config'
+
+// Create express application
+const app = express();
+
+// Session stuff
+const SQLiteStore = connectSqlite(session);
+
+app.use(session({
+ store: new SQLiteStore({
+   dir: './database/',
+   db:'sessions',
+   table:'sessions'}),
+ secret: process.env.SESSION_SECRET,
+ resave: false,
+ saveUninitialized: false,
+ cookie: {
+   maxAge: 1000 * 60 * 60, // 1 hour
+   sameSite: true
+ }
+}));
+
+
+example of controllers/index (/login POST request) :
+
+// If passwords match
+request.session.isAuth = true;
+request.session.userEmail = email;
+console.log(request.session);
+console.log('User login successful.')
+response.redirect('/books');
+
+example of controllers/indes (/logout POST request) :
+
+// Logout controller
+function post_logout (request, response) {
+ request.session.destroy((error) => {
+   if (error) throw error;
+   console.log('User logout.');
+   response.redirect('/');
+ });
+};
+...
+// Export controllers
+export {
+ ...
+ post_logout,
+ ...
+};
+
+
+protecting routes example : (functions first then /routes)
+
+// User is not authenticated
+function isNotAuth (request, response, next) {
+ if (request.session.isAuth) {
+   next();
+ } else {
+   response.status(401).render('401');
+ }
+};
+
+// User is authenticated
+function isAuth (request, response, next) {
+ if (request.session.isAuth) {
+   response.redirect('/books');
+ } else {
+   next();
+ }
+};
+
+// Current user
+function currentUser (request, response, next) {
+ if (request.session.userEmail) {
+   response.locals.userEmail = request.session.userEmail;
+   next();
+ } else {
+   response.locals.userEmail = null;
+   next();
+ }
+};
+
+export {
+ isNotAuth,
+ isAuth,
+ currentUser
+};
+
+example protecting routes /routes :
+
+import express from 'express';
+import * as appController from '../controllers/appControllers.js';
+import { userValidation } from '../validation/appValidation.js';
+import { isNotAuth, isAuth, currentUser } from '../middlewares/appMiddlewares.js';
+
+// Create route handler
+const router = express.Router();
+
+// Index
+// GET
+router.get('/', currentUser, appController.get_index);
+
+// Register
+// GET
+router.get('/register', isAuth, currentUser, appController.get_register);
+router.post('/register', isAuth, currentUser, userValidation(), appController.post_register);
+
+// Login
+// GET
+router.get('/login', isAuth, currentUser, appController.get_login);
+router.post('/login', isAuth, currentUser, appController.post_login);
+
+// Logout
+router.post('/logout', currentUser, appController.post_logout);
+
+// Books
+//GET
+router.get('/books', isNotAuth, currentUser, appController.get_books);
+
+// Export router
+export default router;

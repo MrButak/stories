@@ -3,9 +3,15 @@ var router = express.Router();
 
 let index = require('../controllers/index');
 let logIn = require('../controllers/login');
-let signUp = require('../controllers/signup')
+let signUp = require('../controllers/signup');
+let handleAuth = require('../public/javascripts/handleAuth')
 
 // home page
+
+// handleAuth.notAuth, handleAuth.currentUser,
+
+
+
 router.get('/', index.index);
 router.post('/', index.add_paragraph);
 
