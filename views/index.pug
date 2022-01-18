@@ -1,7 +1,8 @@
 extends layout
 block content
   p The current user is
-  p= currentUser  
+  p= currentUser
+  a(href="/logout") logout  
   h2 -Some Story Title- <!-- insert from db -->
   for para in ps
     each property in Object.keys(para)
