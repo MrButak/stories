@@ -2,7 +2,7 @@ const Database = require('better-sqlite3');
 const hashing = require('../hashing')
 
 
-
+// Function checks if user inputted username is available
 exports.signUp = (username) => {
     
     const db = new Database('public/javascripts/data/stories.db');
@@ -10,16 +10,17 @@ exports.signUp = (username) => {
     const userNameValue = userStmt.get(username);
 
     // Compare username to database to see if it's available
-    if(userNameValue == undefined) {
+    if(userNameValue != undefined) {
         db.close();
-        return true
+        return false;
     };
 
     db.close();
-    return false;
+    return true
+    
 };
 
-
+// Function writes new user credentials to database
 exports.writeUserToDatabase = (username, password) => {
 
     const db = new Database('public/javascripts/data/stories.db');
@@ -32,15 +33,16 @@ exports.writeUserToDatabase = (username, password) => {
     return;
 };
 
-
+// Function compares user inputted login credentials to database
 exports.tryLogin = (username, password) => {
 
     const db = new Database('public/javascripts/data/stories.db');
+    
     // Check for valid user name
     const userStmt = db.prepare('SELECT user_name FROM users WHERE user_name = (?)');
     const userNameValue = userStmt.get(username);
+    
     if(!userNameValue) {
-        console.log(`That user name is not in the database ${username}`)
         db.close();
         return false
     };
@@ -53,19 +55,10 @@ exports.tryLogin = (username, password) => {
     if(!hashing.comparePassword(password, passValue['encrypted_password'])) {
 
         db.close();
-        console.log(`That password is not in the database for user: ${username} password attempted: ${password}`);
         return false;
     };
 
-    // If login credentials match database entry log user in
-
-    // TODO:
-    // 1. save username to a global variable?
-    // 2. express-session
-    console.log(`successfull login username: ${username} | password: ${password}`);
     db.close();
     return true;
 
-    
-
-}
+};

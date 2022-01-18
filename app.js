@@ -31,7 +31,7 @@ var sess = {
     //   intervalMs: 1000 * 60 * 60 * 24 //ms = 24 hours
     // }
   }),
-  // Can add secret variable from .env file later
+  // Can add secret variable from .env file later using 'dotenv'
   secret: 'keyboard cat',
   cookie: {
     maxAge: 1000 * 60 * 60 * 24,

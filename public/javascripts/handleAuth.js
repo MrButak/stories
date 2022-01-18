@@ -1,11 +1,5 @@
-// TODO:
-// 1. understand exactly the relationship between req.session, res.session,
-    // res.locals and the sessions.db
-// 2. store from stories.db users(id) to the local session so I handle 
-    // data/paragraph.js correctly
 
-
-
+// Function check session to see if user is logged in. If not redirect to login page
 exports.notAuth = (req, res, next) => {
     if(!req.session.isAuth) {
         res.redirect('/login');
@@ -14,24 +8,25 @@ exports.notAuth = (req, res, next) => {
     next();
 };
 
-// can use this to restrict logged in users from login page
+// Function checks is user is logged in. If so redirects to home page (can use on any route e.g.: keep logged in user from login page)
 exports.isAuth = (req, res, next) => {
     if(!req.session.isAuth) {
         next();
     };
+    
     res.redirect('/');
 };
 
-// as far as I can tell, res.locals can be passed to the view engine (pug)
-// also .locals is accessible only after this function 
-// it also seems assigning res.locals to req.session. only make it available
+// As far as I can tell, res.locals can be passed to the view engine (pug).
+// Also .locals is accessible only after this function?
+// It also seems assigning res.locals to req.session. only make it available?
 exports.currentUser = (req, res, next) => {
  
     if(!req.session.userName) {
         res.locals.userName = null;
-        next();
-        
+        next();  
     };
+
     res.locals.userName = req.session.userName;
     next();
 };

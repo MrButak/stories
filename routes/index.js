@@ -13,7 +13,7 @@ router.get('/', handleAuth.notAuth, handleAuth.currentUser, index.index);
 router.post('/', handleAuth.currentUser, index.add_paragraph);
 
 // login page
-// restrict access to logged in users
+// restrict access to users already logged in
 router.get('/login', handleAuth.isAuth, loginOut.log_in);
 router.post('/login', loginOut.checkLogin)
 

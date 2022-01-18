@@ -21,7 +21,7 @@ exports.insertParagraph = (paragraph, res, req) => {
     return;
 };
 
-// Function gets all paragraphs in the database, stores them in array
+// Function gets all paragraphs in the database, stores them in an array of objects
 exports.displayAllParagraphs = () => {
     
     const db = new Database('public/javascripts/data/stories.db');
