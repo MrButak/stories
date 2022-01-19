@@ -27,6 +27,9 @@ exports.currentUser = (req, res, next) => {
         next();  
     };
 
+    // As I know, res.locals can be passed to the view layer (.pug)
     res.locals.userName = req.session.userName;
+    res.locals.userId = req.session.userId;
+
     next();
 };

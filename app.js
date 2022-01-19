@@ -26,10 +26,10 @@ const db = new sqlite("sessions.db", { verbose: console.log });
 var sess = {
   store: new SqliteStore({
     client: db, 
-    // expired: {
-    //   clear: true,
-    //   intervalMs: 1000 * 60 * 60 * 24 //ms = 24 hours
-    // }
+    expired: {
+      clear: true,
+      intervalMs: 1000 * 60 * 60 * 24 //ms = 24 hours
+    }
   }),
   // Can add secret variable from .env file later using 'dotenv'
   secret: 'keyboard cat',
