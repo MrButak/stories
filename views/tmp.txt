@@ -11,3 +11,10 @@
     <br>
     <button type="submit">Submit</button>
 </form> -->
+
+
+<% stories.forEach(function(story) { %>
+        <form class="allBooksForm" method="post" action="/">        
+            <input id="storyId" name = "storyId" type="hidden" value="<%= story[i]['id'] %>"> 
+            <input type="submit" value="<%= story[i]['title'] %>">
+        </form>

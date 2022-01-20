@@ -1,14 +1,20 @@
 <h1>I'm the stories app</h1>
 <p>Current user</p>
 
-<div id="storyTitles"> 
-    <% stories.forEach(function(story) { %>
-        <form class="allBooksForm" method="post" action="/">        
-            <input id="storyId" name = "storyId" type="hidden" value="<%= story['id'] %>"> 
-            <input type="submit" value="<%= story['title'] %>">
-        </form>   
-    <% }); %>
+<div id="storyTitles">
+    <% for (var i = 0; i < stories.length;  i++ ) { %>
+
+        <p><%= stories[i]['title'] %></p>
+
+        <% for (var j = 0; j < stories[i]['paragraphs'].length;  j++ ) { %>
+            
+            <p><%= stories[i]['paragraphs'][j][0] %></p>
+        <% } %>
+
+    <% } %>
+        
 </div>
+
 
 <form method="post" action="/">        
     <textarea></textarea>

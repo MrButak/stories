@@ -1,5 +1,6 @@
 const Database = require('better-sqlite3');
 
+
 exports.displayAllStories = () => {
     
     // Get all stories
@@ -7,25 +8,19 @@ exports.displayAllStories = () => {
     let allStories = db.prepare('SELECT * FROM stories').all();
 
 
-    // Get the first five paragraphs from each story
-    let paraArry = [];
+    // Get the first five paragraphs (if that many) from each story
     for(let i = 1; i < allStories.length + 1; i++) {
+        let paraArry = [];
         let paraStmt = db.prepare('SELECT * from paragraphs WHERE stories_id = (?) LIMIT 5');
         paraArry.push(paraStmt.all(i));
-        allStories[i - 1]['paragraphs'] = []; // set a blank array to put all paragraphs in
+        allStories[i - 1]['paragraphs'] = []
+        for(let j = 0; j < paraArry[0].length; j++) {
+            allStories[i - 1]['paragraphs'].push([paraArry[0][j]['content']]);
+        } 
         
     };
-
-    // Store the first five(if that many) paragraphs to each story object
-    for(let i = 1; i < allStories.length; i++) {
-        for(let j = 0; j < paraArry[i - 1].length; j++) {
-            if(allStories[i - 1]['id'] == paraArry[i - 1][i - 1]['stories_id']) {
-                allStories[i - 1]['paragraphs'].push(paraArry[i - 1][i - 1]['content'])
-            };
-        };
-    };
-
     
+   
     db.close();
     return(allStories);
 };
