@@ -27,7 +27,7 @@ exports.currentUser = (req, res, next) => {
     };
 
     // Use this to pass information to the view layer
-    res.locals.userName = req.session.userName;
+    res.locals.userName = req.session.user['user_name'];
     
     next();
 };

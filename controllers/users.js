@@ -51,8 +51,7 @@ exports.checkLogin = function(req, res, next) {
     
   }
   // login unsuccessful
-  res.render('login'); //, { errorMessage: "Wrong username and/or password. Try again" })
- 
+  res.redirect('login'); // TODO: send failed login error message to views/login
 };
 
 // Function destroys user session and redirects to login page

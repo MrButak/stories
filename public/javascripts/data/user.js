@@ -34,14 +34,8 @@ exports.tryLogin = (username, password) => {
     // Get users credentials
     let user = db.prepare('SELECT user_name, encrypted_password FROM users WHERE user_name LIKE (?)').get(username);
     db.close();
-
-    // Must do this check, because express-js will exit with error if trying to access user['user_name'] if user is undefined
-    if(!user) {
-
-        return false;
-    };
     
-    return (user['user_name'] && 
+    return (user && 
     hashing.comparePassword(password, user['encrypted_password']));
      
 };
