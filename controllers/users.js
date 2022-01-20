@@ -2,7 +2,6 @@ const Database = require('better-sqlite3');
 const users = require("../public/javascripts/data/user");
 
 
-
 // GET request /signup
 exports.signUp = function(req, res, next) {
 
@@ -21,7 +20,7 @@ exports.signUpUser = function(req, res, next) {
     res.render('signup');
   };
 
-  // Signup successfull
+  // Username is available
   users.writeUserToDatabase(username, password);
   // TODO: send a "signup successfull" message to views/login
   res.redirect('login');
@@ -40,23 +39,20 @@ exports.checkLogin = function(req, res, next) {
   let username = req.body.username;
   let password = req.body.password;
 
-  // If username and/or password was incorrect
-  if(!users.tryLogin(username, password)) {
+  // If login in successful
+  if(users.tryLogin(username, password)) {
 
-    res.render('login', { errorMessage: "Wrong username and/or password. Try again" })
+    // Write user information to req.sessions
+    let db = new Database('public/javascripts/data/stories.db');
+    let user = db.prepare('SELECT * FROM users WHERE user_name LIKE (?)').get(username);
+    req.session.user = user
+    
+    res.redirect('/');
+    
   }
-  
-  // Write user information to req.sessions
-  let db = new Database('public/javascripts/data/stories.db');
-  let userIdStmt = db.prepare('SELECT id FROM users WHERE user_name = (?)');
-  let userIdGet = userIdStmt.get(username);
-  let userId = userIdGet.id;
-
-  req.session.userId = userId;
-  req.session.isAuth = true;
-  req.session.userName = username;
-  
-  res.redirect('/');
+  // login unsuccessful
+  res.render('login'); //, { errorMessage: "Wrong username and/or password. Try again" })
+ 
 };
 
 // Function destroys user session and redirects to login page

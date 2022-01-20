@@ -31,26 +31,17 @@ exports.tryLogin = (username, password) => {
 
     let db = new Database('public/javascripts/data/stories.db');
     
-    // Check for valid user name
-    let userStmt = db.prepare('SELECT user_name FROM users WHERE user_name = (?)');
-    let userNameValue = userStmt.get(username);
-    
-    if(!userNameValue) {
-        db.close();
-        return false
-    };
-    
-    // Get hashed password from database
-    const passStmt = db.prepare('SELECT encrypted_password FROM users WHERE user_name = (?)');
-    const passValue = passStmt.get(username);
+    // Get users credentials
+    let user = db.prepare('SELECT user_name, encrypted_password FROM users WHERE user_name LIKE (?)').get(username);
+    db.close();
 
-    // Send hashed password to check against user entered password
-    if(!hashing.comparePassword(password, passValue['encrypted_password'])) {
+    // Must do this check, because express-js will exit with error if trying to access user['user_name'] if user is undefined
+    if(!user) {
 
-        db.close();
         return false;
     };
-
-    db.close();
-    return true;
+    
+    return (user['user_name'] && 
+    hashing.comparePassword(password, user['encrypted_password']));
+     
 };
