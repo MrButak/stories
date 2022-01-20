@@ -1,25 +1,37 @@
-<h1>I'm the stories app</h1>
-<p>Current user</p>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include('../views/partials/head.ejs'); %>
+</head>
 
-<div id="storyTitles">
-    <% for (var i = 0; i < stories.length;  i++ ) { %>
+<body>
 
-        <p><%= stories[i]['title'] %></p>
+    <h1>I'm the stories app</h1>
+    <p>Current user: <%= currentUserName %></p>
+    <a href="/logout">Logout</a>
 
-        <% for (var j = 0; j < stories[i]['paragraphs'].length;  j++ ) { %>
-            
-            <p><%= stories[i]['paragraphs'][j][0] %></p>
+    <!-- This loops through the stories array, displaying each title and the first 5 
+        paragraphs, and a hidden field with the story id -->
+
+    <div class="storyTitlesWrapper">
+        <% for (var i = 0; i < stories.length;  i++ ) { %>
+        <div id="storyTitles">
+            <form>
+                <h3><%= stories[i]['title'] %></h3>
+                <input id="storyId" type="hidden" value="<%= stories[i]['id'] %>">
+                <% for (var j = 0; j < stories[i]['paragraphs'].length;  j++ ) { %>
+                    <p><%= stories[i]['paragraphs'][j][0] %></p>
+                <% } %>
+            </form>
+            </div>    
         <% } %>
-
-    <% } %>
+    </div>
         
-</div>
+    <form method="post" action="/addstory">        
+        <textarea cols="60", name="addStoryInput", rows="4"></textarea>
+        <br>
+        <input type="submit" value="Start a new story">
+    </form>
 
-
-<form method="post" action="/">        
-    <textarea></textarea>
-    <br>
-    <input type="submit">
-</form>   
-
-
+</body>
+</html>

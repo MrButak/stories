@@ -3,15 +3,20 @@ const storyManager = require('../public/javascripts/data/storyManager');
 
 
 exports.getAllStories = function(req, res, next) {
- 
+
     let currentUserName = res.locals.userName;
-    //let displayStories = storyManager.displayAllStories();
+    res.render('index', { stories: storyManager.displayAllStories(), currentUserName: currentUserName});
     
-    //console.log(displayStories[1][0][0]['content'])
+};
+
+exports.addStory = function(req, res, next) {
+    // possibly send user to the add to story page, so they can start the first paragraph of their new story
+
+    let storyTitle = req.body.addStoryInput;
+    let userId = req.session.user['id'];
     
-    //console.log(paragraphs);
-    res.render('index', { stories: storyManager.displayAllStories()});
-    
+    storyManager.addStory(storyTitle, userId);
+    res.redirect('/');
 };
 
 exports.goToStory = function(req, res, next) {

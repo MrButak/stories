@@ -10,8 +10,11 @@ const stories = require('../controllers/stories');
 // restrict access to users not logged in
 // router.get('/', handleAuth.requireLogin, handleAuth.currentUser, index.index);
 // router.post('/', handleAuth.currentUser, index.add_paragraph);
-router.get('/', handleAuth.currentUser, stories.getAllStories);
+router.get('/', handleAuth.requireLogin, handleAuth.currentUser, stories.getAllStories);
 router.post('/', stories.goToStory);
+
+// add story
+router.post('/addstory', stories.addStory);
 
 // login page
 // restrict access to users already logged in
