@@ -6,7 +6,7 @@ const paragraph = require("../public/javascripts/data/paragraph");
 exports.index = function(req, res, next) {
 
   let currentUserName = res.locals.userName;
-  res.render('index', { ps: paragraph.displayAllParagraphs(), currentUserName: currentUserName })
+  res.render('index', { paragraphs: paragraph.displayAllParagraphs(), currentUserName: currentUserName });
 };
 
 // POST request /
