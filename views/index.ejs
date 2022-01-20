@@ -1,16 +1,19 @@
 <h1>I'm the stories app</h1>
 <p>Current user</p>
-<p><%= currentUserName %></p>
-<a href="/logout">logout</a>
-<ul>
-    <% paragraphs.forEach(function(paragraph) { %>
-        <li><%= paragraph['content'] %></li>
 
+<div id="storyTitles"> 
+    <% stories.forEach(function(story) { %>
+        <form class="allBooksForm" method="post" action="/">        
+            <input id="storyId" name = "storyId" type="hidden" value="<%= story['id'] %>"> 
+            <input type="submit" value="<%= story['title'] %>">
+        </form>   
     <% }); %>
-</ul>
-<form accept="/", method="post">
-    <p>Add to story</p>
-    <textarea name="paragraph_input", cols="30", rows="10"></textarea>
+</div>
+
+<form method="post" action="/">        
+    <textarea></textarea>
     <br>
-    <button type="submit">Submit</button>
-</form>
+    <input type="submit">
+</form>   
+
+

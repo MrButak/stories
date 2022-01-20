@@ -1,0 +1,13 @@
+<a href="/logout">logout</a>
+<ul>
+    <% paragraphs.forEach(function(paragraph) { %>
+        <li><%= paragraph['content'] %></li>
+
+    <% }); %>
+</ul>
+<form accept="/", method="post">
+    <p>Add to story</p>
+    <textarea name="paragraph_input", cols="30", rows="10"></textarea>
+    <br>
+    <button type="submit">Submit</button>
+</form> -->

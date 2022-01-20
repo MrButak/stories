@@ -3,12 +3,15 @@ var router = express.Router();
 
 const index = require('../controllers/index');
 const users = require('../controllers/users');
-const handleAuth = require('../public/javascripts/handleAuth')
+const handleAuth = require('../public/javascripts/handleAuth');
+const stories = require('../controllers/stories');
 
 // home page
 // restrict access to users not logged in
-router.get('/', handleAuth.requireLogin, handleAuth.currentUser, index.index);
-router.post('/', handleAuth.currentUser, index.add_paragraph);
+// router.get('/', handleAuth.requireLogin, handleAuth.currentUser, index.index);
+// router.post('/', handleAuth.currentUser, index.add_paragraph);
+router.get('/', handleAuth.currentUser, stories.getAllStories);
+router.post('/', stories.goToStory);
 
 // login page
 // restrict access to users already logged in
