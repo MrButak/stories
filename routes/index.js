@@ -1,21 +1,26 @@
 var express = require('express');
 var router = express.Router();
 
-let index = require('../controllers/index');
-let logIn = require('../controllers/login');
-let signUp = require('../controllers/signup')
+const index = require('../controllers/index');
+const users = require('../controllers/users');
+const handleAuth = require('../public/javascripts/handleAuth')
 
 // home page
-router.get('/', index.index);
-router.post('/', index.add_paragraph);
+// restrict access to users not logged in
+router.get('/', handleAuth.requireLogin, handleAuth.currentUser, index.index);
+router.post('/', handleAuth.currentUser, index.add_paragraph);
 
 // login page
-router.get('/login', logIn.log_in);
-router.post('/login', logIn.checkLogin)
+// restrict access to users already logged in
+router.get('/login', handleAuth.isLoggedIn, users.log_in);
+router.post('/login', users.checkLogin)
 
 // signup page
-router.get('/signup', signUp.signUp);
-router.post('/signup', signUp.signUpUser)
+router.get('/signup', users.signUp);
+router.post('/signup', users.signUpUser) // where is this??
 
+// logout
+router.get('/logout', users.logout);
+router.post('/logout', users.logout);
 
 module.exports = router;
