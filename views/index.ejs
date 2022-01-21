@@ -13,23 +13,24 @@
     <!-- This loops through the stories array, displaying each title and the first 5 
         paragraphs, and a hidden field with the story id -->
 
+        <!--console.log(allStories[0]['paragraphs'][1]['content'])-->
     <div class="storyTitlesWrapper">
-        <% for (var i = stories.length - 1; i > -1;  i-- ) { %>
-        <div id="storyTitles">
-            <form method="post" action="/story">
-                <h3><%= stories[i]['title'] %></h3>
-                <input type="submit" value="view / add to story">
-                <input name = "storyId" type="hidden" value="<%= stories[i]['id'] %>">
-                <% for (var j = 0; j < stories[i]['paragraphs'].length;  j++ ) { %>
-                    <p><%= stories[i]['paragraphs'][j][0] %></p>
-                <% } %>
-            </form>
-            </div>    
-        <% } %>
+        <% stories.forEach(function(story) { %>
+            <div id="storyTitles">
+                <form method="post" action="/story">
+                    <h2> <%= story['title'] %></h2>
+                    <input type="submit" value="view / add to story">
+                    <input name = "storyId" type="hidden" value="<%= story['id'] %>">
+                </form>
+                <% story['paragraphs'].forEach(function(para) { %>
+                <text> <%= para['content'] %></text>
+                <% }); %>
+            </div>
+        <% }); %>  
     </div>
         
     <form action="/addstory" method="post">        
-        <textarea cols="60", maxlength="70" name="addStoryInput", rows="4", placeholder="Enter the title of your story", title="Maximum length 70 character", required></textarea>
+        <textarea cols="60", maxlength="70" name="addStoryInput", rows="4", placeholder="Enter the title of your story", title="Maximum length 70 characters", required></textarea>
         <br>
         <input type="submit" value="Start a new story">
     </form>

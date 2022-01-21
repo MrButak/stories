@@ -5,6 +5,7 @@ const users = require('../controllers/users');
 const handleAuth = require('../public/javascripts/handleAuth');
 const stories = require('../controllers/stories');
 
+
 // home page
 router.get('/', handleAuth.requireLogin, handleAuth.currentUser, stories.getAllStories);
 

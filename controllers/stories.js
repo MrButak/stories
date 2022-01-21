@@ -3,7 +3,7 @@ const paragraph = require('../public/javascripts/data/paragraph');
 
 exports.getAllStories = function(req, res, next) {
 
-    let currentUserName = res.locals.userName;
+    let currentUserName = req.session.user['user_name'];
     res.render('index', { stories: storyManager.displayAllStories(), currentUserName: currentUserName});
 };
 
@@ -20,7 +20,7 @@ exports.addStory = function(req, res, next) {
 
 exports.viewStory = function(req, res, next) {
 
-    let currentUserName = res.locals.userName;
+    let currentUserName = req.session.user['user_name'];
     let storyId = req.body['storyId'];
 
     res.render('story', { story: storyManager.getStory(storyId), currentUserName: currentUserName });
