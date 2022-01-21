@@ -16,9 +16,10 @@
     <div class="storyTitlesWrapper">
         <% for (var i = 0; i < stories.length;  i++ ) { %>
         <div id="storyTitles">
-            <form>
+            <form method="post" action="/">
                 <h3><%= stories[i]['title'] %></h3>
-                <input id="storyId" type="hidden" value="<%= stories[i]['id'] %>">
+                <input type="submit" value="view / add to story">
+                <input name = "storyId" type="hidden" value="<%= stories[i]['id'] %>">
                 <% for (var j = 0; j < stories[i]['paragraphs'].length;  j++ ) { %>
                     <p><%= stories[i]['paragraphs'][j][0] %></p>
                 <% } %>

@@ -11,9 +11,9 @@ const stories = require('../controllers/stories');
 // router.get('/', handleAuth.requireLogin, handleAuth.currentUser, index.index);
 // router.post('/', handleAuth.currentUser, index.add_paragraph);
 router.get('/', handleAuth.requireLogin, handleAuth.currentUser, stories.getAllStories);
-router.post('/', stories.goToStory);
+router.post('/', handleAuth.requireLogin, handleAuth.currentUser, stories.viewStory);
 
-// add story
+// add story POST from form on /
 router.post('/addstory', stories.addStory);
 
 // login page

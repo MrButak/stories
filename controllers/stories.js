@@ -19,9 +19,9 @@ exports.addStory = function(req, res, next) {
     res.redirect('/');
 };
 
-exports.goToStory = function(req, res, next) {
+exports.viewStory = function(req, res, next) {
+
+    let currentUserName = res.locals.userName;
     let storyId = req.body['storyId'];
-    
-    next();
-    // res.redirect('/');
+    res.render('story', { story: storyManager.getStory(storyId), currentUserName: currentUserName });
 };
