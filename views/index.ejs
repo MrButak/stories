@@ -28,8 +28,8 @@
         <% } %>
     </div>
         
-    <form method="post" action="/addstory">        
-        <textarea cols="60", name="addStoryInput", rows="4"></textarea>
+    <form action="/addstory" method="post">        
+        <textarea cols="60", maxlength="70" name="addStoryInput", rows="4", placeholder="Enter the title of your story", title="Maximum length 70 character", required></textarea>
         <br>
         <input type="submit" value="Start a new story">
     </form>

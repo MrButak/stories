@@ -16,7 +16,7 @@
 
     <form action="/story", method="post">
         <p>Add to story</p>
-        <textarea name="paragraph_input", cols="30", rows="10"></textarea>
+        <textarea name="paragraph_input", cols="60", maxlength="2000", minlength="1", name="addStoryInput", rows="4", placeholder="Contribute to this story", title="Maximum length 2000 characters", required></textarea></textarea>
         <input type="hidden" name = "storyId" value="<%= story['id'] %>">
         <br>
         <button type="submit">Submit</button>
