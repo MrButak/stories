@@ -37,6 +37,7 @@ exports.getStory = (storyId) => {
     
     let db = new Database('public/javascripts/data/stories.db');
     let story = db.prepare('SELECT * FROM stories WHERE id = (?)').get(storyId);
+    // Add the paragraphs as a property
     story['paragraphs'] = db.prepare('SELECT content FROM paragraphs WHERE stories_id = (?)').all(storyId);
     
     db.close();

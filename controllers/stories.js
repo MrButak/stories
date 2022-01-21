@@ -42,3 +42,4 @@ exports.addParagraph = function(req, res, next) {
     paragraph.insertParagraph(paragraphInput, userId, storyId);
     next();
   };
+  
