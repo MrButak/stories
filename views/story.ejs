@@ -1,5 +1,3 @@
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -16,7 +14,7 @@
         <p><%= story['paragraphs'][i]['content'] %></p>
     <% } %>
 
-    <form action="/addparagraph", method="post">
+    <form action="/story", method="post">
         <p>Add to story</p>
         <textarea name="paragraph_input", cols="30", rows="10"></textarea>
         <input type="hidden" name = "storyId" value="<%= story['id'] %>">
