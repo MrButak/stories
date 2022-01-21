@@ -14,7 +14,7 @@
         paragraphs, and a hidden field with the story id -->
 
     <div class="storyTitlesWrapper">
-        <% for (var i = 0; i < stories.length;  i++ ) { %>
+        <% for (var i = stories.length - 1; i > -1;  i-- ) { %>
         <div id="storyTitles">
             <form method="post" action="/story">
                 <h3><%= stories[i]['title'] %></h3>
