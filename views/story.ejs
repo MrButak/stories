@@ -12,10 +12,17 @@
     <a href="/logout">Logout</a>
 
     <h2><%= story['title'] %></h2>
-
     <% for (var i = 0; i < story['paragraphs'].length;  i++ ) { %>
         <p><%= story['paragraphs'][i]['content'] %></p>
     <% } %>
+
+    <form action="/addparagraph", method="post">
+        <p>Add to story</p>
+        <textarea name="paragraph_input", cols="30", rows="10"></textarea>
+        <input type="hidden" name = "storyId" value="<%= story['id'] %>">
+        <br>
+        <button type="submit">Submit</button>
+    </form>
 
 </body>
 </html>

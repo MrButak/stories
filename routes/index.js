@@ -7,23 +7,26 @@ const handleAuth = require('../public/javascripts/handleAuth');
 const stories = require('../controllers/stories');
 
 // home page
-// restrict access to users not logged in
-// router.get('/', handleAuth.requireLogin, handleAuth.currentUser, index.index);
-// router.post('/', handleAuth.currentUser, index.add_paragraph);
 router.get('/', handleAuth.requireLogin, handleAuth.currentUser, stories.getAllStories);
-router.post('/', handleAuth.requireLogin, handleAuth.currentUser, stories.viewStory);
+
+// TODO: can I somehow combine both POST /story and /addparagraph  /addparagraph only has one extra function call. Mayber I can put a check in stories.addParagraph and use next().
+
+// view story POST from form on /
+router.post('/story', handleAuth.requireLogin, handleAuth.currentUser, stories.viewStory);
+// router.get('/story', handleAuth.requireLogin, handleAuth.currentUser)
 
 // add story POST from form on /
-router.post('/addstory', stories.addStory);
+router.post('/addstory', handleAuth.requireLogin, handleAuth.currentUser, stories.addStory);
+
+router.post('/addparagraph', handleAuth.requireLogin, handleAuth.currentUser, stories.addParagraph, stories.viewStory);
 
 // login page
-// restrict access to users already logged in
 router.get('/login', handleAuth.isLoggedIn, users.log_in);
-router.post('/login', users.checkLogin)
+router.post('/login', users.checkLogin);
 
 // signup page
 router.get('/signup', users.signUp);
-router.post('/signup', users.signUpUser) // where is this??
+router.post('/signup', users.signUpUser);
 
 // logout
 router.get('/logout', users.logout);

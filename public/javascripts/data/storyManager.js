@@ -1,6 +1,5 @@
 const Database = require('better-sqlite3');
 
-
 exports.displayAllStories = () => {
     
     // Get all stories (an array of objects)
@@ -24,6 +23,7 @@ exports.displayAllStories = () => {
     return(allStories);
 };
 
+// Function writes a new story (title) to the database
 exports.addStory = (storyTitle, userId) => {
 
     let db = new Database('public/javascripts/data/stories.db');
@@ -32,15 +32,13 @@ exports.addStory = (storyTitle, userId) => {
     return;
 };
 
+// Function gets 1 story and all of it's paragraphs
 exports.getStory = (storyId) => {
+    
     let db = new Database('public/javascripts/data/stories.db');
-    let story = db.prepare('SELECT title FROM stories WHERE id = (?)').get(storyId);
+    let story = db.prepare('SELECT * FROM stories WHERE id = (?)').get(storyId);
     story['paragraphs'] = db.prepare('SELECT content FROM paragraphs WHERE stories_id = (?)').all(storyId);
     
-    // console.log(story['title'])
-    // console.log(story['paragraphs'][0]['content'])
-    // process.exit(0)
-
     db.close();
     return(story);
 };

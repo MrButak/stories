@@ -1,5 +1,5 @@
 const storyManager = require('../public/javascripts/data/storyManager');
-
+const paragraph = require('../public/javascripts/data/paragraph');
 
 
 exports.getAllStories = function(req, res, next) {
@@ -23,5 +23,18 @@ exports.viewStory = function(req, res, next) {
 
     let currentUserName = res.locals.userName;
     let storyId = req.body['storyId'];
+
     res.render('story', { story: storyManager.getStory(storyId), currentUserName: currentUserName });
 };
+
+// TODO: understand more about routing and how I can possibly share /story with two post requests
+// POST request /addparagraph from form on /addparagraph
+exports.addParagraph = function(req, res, next) {
+    
+    let userId = req.session.user['id'];
+    let storyId = req.body['storyId'];
+    let paragraphInput = req.body.paragraph_input;
+    
+    paragraph.insertParagraph(paragraphInput, userId, storyId);
+    next();
+  };
