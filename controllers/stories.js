@@ -9,7 +9,7 @@ exports.getAllStories = function(req, res, next) {
 
 exports.addStory = function(req, res, next) {
 
-    // Idea: send user to the add to story page, so they can start the first paragraph of their new story.
+    // Idea: send user to the 'add to story' page, so they can start the first paragraph of their new story.
 
     let storyTitle = req.body.addStoryInput;
     let userId = req.session.user['id'];
