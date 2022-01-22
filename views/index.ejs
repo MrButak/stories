@@ -10,10 +10,6 @@
     <p>Current user: <%= currentUserName %></p>
     <a href="/logout">Logout</a>
 
-    <!-- This loops through the stories array, displaying each title and the first 5 
-        paragraphs, and a hidden field with the story id -->
-
-        <!--console.log(allStories[0]['paragraphs'][1]['content'])-->
     <div class="storyTitlesWrapper">
         <% stories.forEach(function(story) { %>
             <div id="storyTitles">
@@ -30,7 +26,7 @@
     </div>
         
     <form action="/addstory" method="post">        
-        <textarea cols="60", maxlength="70" name="addStoryInput", rows="4", placeholder="Enter the title of your story", title="Maximum length 70 characters", required></textarea>
+        <textarea cols="60", maxlength="70" name="addStoryInput", placeholder="Enter the title of your story", rows="4", title="Maximum length 70 characters", required></textarea>
         <br>
         <input type="submit" value="Start a new story">
     </form>

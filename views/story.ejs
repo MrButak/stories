@@ -8,11 +8,12 @@
     <h2>Welcome to the story page</h2>
     <p>Current user: <%= currentUserName %></p>
     <a href="/logout">Logout</a>
+    <a href="/">Home</a>
 
     <h2><%= story['title'] %></h2>
-    <% for (var i = 0; i < story['paragraphs'].length;  i++ ) { %>
-        <p><%= story['paragraphs'][i]['content'] %></p>
-    <% } %>
+    <% story['paragraphs'].forEach(function(para) { %>
+        <p><%= para['content'] %></p>
+    <% }); %>
 
     <form action="/story", method="post">
         <p>Add to story</p>
