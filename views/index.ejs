@@ -19,7 +19,7 @@
                     <input name = "storyId" type="hidden" value="<%= story['id'] %>">
                 </form>
                 <% story['paragraphs'].forEach(function(para) { %>
-                <text> <%= para['content'] %></text>
+                <p> <%= para['content'] %></p>
                 <% }); %>
             </div>
         <% }); %>  
