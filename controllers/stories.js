@@ -19,11 +19,22 @@ exports.addStory = function(req, res, next) {
 };
 
 exports.viewStory = function(req, res, next) {
-
+    
     let currentUserName = req.session.user['user_name'];
-    let storyId = req.body['storyId'];
-
-    res.render('story', { story: storyManager.getStory(storyId), currentUserName: currentUserName });
+    
+    // GET request
+    if(req.method == "GET") {
+       let storyId =  req.query['storyId'];
+       console.log("did the validation check work?");
+       // here I need to specify the exact url for the get request?? {storyId}?storyId={storyId}
+       res.render(`/story/`, { story: storyManager.getStory(storyId), currentUserName: currentUserName });
+    }
+    // POST request
+    else {
+        let storyId = req.body['storyId'];
+        res.render('story', { story: storyManager.getStory(storyId), currentUserName: currentUserName });
+    };
+    
 };
 
 // POST request /addparagraph from form on /addparagraph

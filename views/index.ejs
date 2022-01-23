@@ -13,7 +13,7 @@
     <div class="storyTitlesWrapper">
         <% stories.forEach(function(story) { %>
             <div id="storyTitles">
-                <form method="post" action="/story">
+                <form method="get" action="/story/<%= story['id'] %>">
                     <h2> <%= story['title'] %></h2>
                     <input type="submit" value="view / add to story">
                     <input name = "storyId" type="hidden" value="<%= story['id'] %>">

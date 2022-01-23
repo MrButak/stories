@@ -11,6 +11,7 @@ router.get('/', handleAuth.requireLogin, handleAuth.currentUser, stories.getAllS
 
 // view story POST from form on '/ homepage' and submit paragraph on '/story'
 router.post('/story', handleAuth.requireLogin, handleAuth.currentUser, stories.addParagraph, stories.viewStory);
+router.get('/story/:id', handleAuth.requireLogin, handleAuth.currentUser, stories.viewStory);
 
 // add story POST from form on '/ homepage'. Redirects back to '/ homepage'
 router.post('/addstory', handleAuth.requireLogin, handleAuth.currentUser, stories.addStory);
