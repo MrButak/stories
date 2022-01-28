@@ -47,7 +47,6 @@ if (app.get('env') === 'production') {
 }
 app.use(session(sess));
 
-
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -72,7 +71,5 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
-
-
 
 module.exports = app;

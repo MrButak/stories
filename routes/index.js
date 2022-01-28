@@ -1,23 +1,26 @@
 var express = require('express');
 var router = express.Router();
 
-const index = require('../controllers/index');
 const users = require('../controllers/users');
-const handleAuth = require('../public/javascripts/handleAuth')
+const handleAuth = require('../public/javascripts/handleAuth');
+const stories = require('../controllers/stories');
 
 // home page
-// restrict access to users not logged in
-router.get('/', handleAuth.requireLogin, handleAuth.currentUser, index.index);
-router.post('/', handleAuth.currentUser, index.add_paragraph);
+router.get('/', handleAuth.requireLogin, handleAuth.currentUser, stories.getAllStories);
+
+// view story POST from form on '/ homepage' and submit paragraph on '/story'
+router.post('/story', handleAuth.requireLogin, handleAuth.currentUser, stories.addParagraph, stories.viewStory);
+
+// add story POST from form on '/ homepage'. Redirects back to '/ homepage'
+router.post('/addstory', handleAuth.requireLogin, handleAuth.currentUser, stories.addStory);
 
 // login page
-// restrict access to users already logged in
 router.get('/login', handleAuth.isLoggedIn, users.log_in);
-router.post('/login', users.checkLogin)
+router.post('/login', users.checkLogin);
 
 // signup page
 router.get('/signup', users.signUp);
-router.post('/signup', users.signUpUser) // where is this??
+router.post('/signup', users.signUpUser);
 
 // logout
 router.get('/logout', users.logout);

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include('../views/partials/head.ejs'); %>
+</head>
+
+<body>
+    <h2>Welcome to the story page</h2>
+    <p>Current user: <%= currentUserName %></p>
+    <a href="/logout">Logout</a>
+
+    <h2><%= story['title'] %></h2>
+    <% for (var i = 0; i < story['paragraphs'].length;  i++ ) { %>
+        <p><%= story['paragraphs'][i]['content'] %></p>
+    <% } %>
+
+    <form action="/story", method="post">
+        <p>Add to story</p>
+        <textarea name="paragraph_input", cols="30", rows="10"></textarea>
+        <input type="hidden" name = "storyId" value="<%= story['id'] %>">
+        <br>
+        <button type="submit">Submit</button>
+    </form>
+
+</body>
+</html>
