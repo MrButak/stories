@@ -1,5 +1,7 @@
 const Database = require('better-sqlite3');
-const users = require("../public/javascripts/data/user");
+
+const users = require('../public/javascripts/data/user');
+const validate = require('../public/javascripts/validate');
 
 
 // GET request /signup
@@ -13,17 +15,19 @@ exports.signUpUser = function(req, res, next) {
 
   let username = req.body.username;
   let password = req.body.password;
+  validate.validateUserForm(username, password)
 
-  // If username was already in database or an error occurred
-  if(users.userNameAvailable(username)) {
-    // TODO: send a "user name taken" message to views/signup
-    res.render('signup');
+  // If username was already in database or username/password format incorrect
+  if(users.userNameAvailable(username) ||
+  !validate.validateUserForm(username, password)) {
+    
+    res.render('signup');// TODO: send a "user name taken" message to views/signup. Or message about username and password format
   };
 
   // Username is available
   users.writeUserToDatabase(username, password);
-  // TODO: send a "signup successfull" message to views/login
-  res.redirect('login');
+  
+  res.redirect('login'); // TODO: send a "signup successfull" message to views/login
  
 };
 
@@ -40,7 +44,8 @@ exports.checkLogin = function(req, res, next) {
   let password = req.body.password;
 
   // If login in successful
-  if(users.tryLogin(username, password)) {
+  if(users.tryLogin(username, password) &&
+  validate.validateUserForm(username, password)) {
 
     // Write user information to req.sessions
     let db = new Database('public/javascripts/data/stories.db');
@@ -62,4 +67,8 @@ exports.logout = (req, res) => {
       if(error) throw error;
       res.redirect('/login')
   })
+};
+
+exports.validate = (req, res) => {
+  console.log("hey there");
 };

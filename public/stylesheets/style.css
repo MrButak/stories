@@ -3,7 +3,7 @@
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 } */
 
-a {
+/* a {
   color: #00B7FF;
 }
 .storyTitlesWrapper {
@@ -13,6 +13,7 @@ a {
 }
 #storyTitles {
   display: flex;
+  flex-direction: column;
   border: 1px solid black;
   padding: 10px;
-}
+} */
