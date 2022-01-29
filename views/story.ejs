@@ -1,14 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <%- include('../views/partials/head.ejs'); %>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stories</title>
+    <link rel="stylesheet" href="../stylesheets/style.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.0-2/css/all.min.css" rel="stylesheet">
 </head>
+
+<%- include('../views/partials/header.ejs'); %>
 
 <body>
     <h2>Welcome to the story page</h2>
     <p>Current user: <%= currentUserName %></p>
-    <a href="/logout">Logout</a>
-    <a href="/">Home</a>
 
     <h2><%= story['title'] %></h2>
     <% story['paragraphs'].forEach(function(para) { %>
