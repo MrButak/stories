@@ -12,7 +12,7 @@
 }
 * body {
     overflow-x: hidden;
-    /* min-height: 100vh; */
+    min-height: 100vh;
 }
 
 /*Header start*/
@@ -205,5 +205,6 @@ textarea {
         padding-right: 150px;
         border: none;
     }
-    /*Header end*/
+    
 }
+/*Header end*/
