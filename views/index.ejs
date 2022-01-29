@@ -4,6 +4,9 @@
     <%- include('../views/partials/head.ejs'); %>
 </head>
 
+<%- include('../views/partials/header.ejs'); %>
+
+
 <body>
 
     <h1>I'm the stories app</h1>
@@ -24,12 +27,13 @@
             </div>
         <% }); %>  
     </div>
-        
+<div class="addStoryWrapper">  
     <form action="/addstory" method="post">        
         <textarea cols="60", maxlength="70" name="addStoryInput", placeholder="Enter the title of your story", rows="4", title="Maximum length 70 characters", required></textarea>
         <br>
         <input type="submit" value="Start a new story">
     </form>
-
+</div>
+<%- include('../views/partials/footer.ejs'); %>
 </body>
 </html>

@@ -1,19 +1,209 @@
-/* body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
-} */
+/*style.css*/
+/*mobile first*/
 
-/* a {
-  color: #00B7FF;
+
+* {
+    box-sizing: border-box;
+    margin: 0px;
+    
+    /*univeral fluid text size*/
+    font-size: 1.1875rem;
+    font-size: clamp(1.1875rem, 1.175rem + 0.0625vw, 1.25rem);
 }
-.storyTitlesWrapper {
-  display: flex;
-  flex-direction: column;
-  gap: 30px;
+* body {
+    overflow-x: hidden;
+    /* min-height: 100vh; */
 }
-#storyTitles {
-  display: flex;
-  flex-direction: column;
-  border: 1px solid black;
-  padding: 10px;
-} */
+
+/*Header start*/
+header {
+    background-color: #7B3C3C;
+    padding: 10px 0;
+    box-shadow: 0 1px 0 rgb(0 0 0 / 10%);
+    
+    
+}
+.menu-wrap {
+    display: flex;
+    justify-content: space-between;
+    padding: 0px 35px 0px 0;
+    /* anything besides 124px height will not work out with current layout */
+    height: 124px;
+}
+.logo-img {
+    max-width: 100%;
+    height: auto;
+    display: none;
+}
+.mobile-logo-img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+.menu-icon {
+    /* font-size: 2.4em; */
+    color: #F0F0E4;
+    line-height: 50px;
+    padding-top: 40px;
+}
+nav {
+    position: absolute;
+    background-color: #F0F0E4;
+    top: 143px;
+    left:0;
+    width: 100%; 
+}
+nav ul {
+    list-style-type: none;
+    max-height: 0px;
+    overflow: hidden;
+    transition: all .2s;
+    
+}
+nav ul li {
+    padding: 0 15px;
+}
+nav ul li a {
+    display: inline-block;
+    padding: 12px;
+    color: black;
+    text-decoration: none;
+    letter-spacing: 0.05em;
+}
+nav ul li a:hover, nav ul li a:focus {
+    color: #DB5F29;
+}
+#checkbox {
+    display: none;
+}
+#checkbox:checked ~ nav ul {
+    max-height: 190px;
+    padding: 15px 0;
+    transition: all 0.5s;
+    border: 1px solid #DB5F29;
+}
+/*Header end*/
+
+/*footer start*/
+.footerWrapper {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    position: absolute;
+    /* left: 0;
+    right: 0; */
+    bottom: 0;
+    
+    
+    /* grid-template-rows: auto 1fr auto; */
+}
+.footerTop {
+    background-color: #2d2d2d;
+    color: white;
+    
+}
+.footerBottom {
+    background-color: #171717;
+    color: white;
+    
+}
+/*footer end*/
+
+.addStoryWrapper {
+    display: flex;
+    max-width: 100px;
+}
+
+textarea {
+    width: 90vw;
+}
+
+/*Tablet sizes---------------------------------------------------------*/
+@media (min-width: 768px) {
+
+    /*Header start*/
+    .logo-img {
+        max-width: 100%;
+        height: auto;
+        display: block;
+    }
+    .mobile-logo-img {
+        max-width: 100%;
+        height: auto;
+        display: none;
+    }
+    .menu-icon {
+        display: none;
+    }
+    nav {
+        top: -10px;
+        background-color: transparent; 
+    }
+    nav ul {
+    max-height: 178px;
+    padding: 55px 25px 0 0;
+    
+    align-items: center;
+    text-align: right;
+    /* font-size: 26px; */
+    }
+    nav ul li {
+        display: inline-flex;
+        padding: 0px;  
+    }
+    #checkbox:checked ~ nav ul {
+        padding-top: 55px;
+        border: none;
+    }
+    nav ul li a {
+        color: #F0F0E4;
+    }
+    /*Header end*/
+}
+/*Desktop sizes*-----------------------------------------------------*/
+
+@media (min-width: 1200px) { 
+
+    /*Header start*/
+    .logo-img {
+        max-width: 100%;
+        height: auto;
+        display: block;
+    }
+    .mobile-logo-img {
+        max-width: 100%;
+        height: auto;
+        display: none;
+    }
+    .menu-icon {
+        display: none;
+    }
+    nav {
+        top: -10px;
+        background-color: transparent;
+    }
+    nav ul {
+        max-height: 178px;
+        padding: 55px 25px 0 0;;
+        padding-right: 150px;
+        align-items: center;
+        text-align: right;
+        /* font-size: 28px; */
+    }
+    nav ul li {
+        display: inline-flex;
+        padding-left: 20px;
+    }
+    
+    .logo-img {
+        max-width: 100%;
+        height: auto;
+        padding-left: 150px;
+    }
+    #checkbox:checked ~ nav ul {
+        padding-top: 55px;
+        padding-right: 150px;
+        border: none;
+    }
+    /*Header end*/
+}
