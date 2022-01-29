@@ -11,22 +11,24 @@
 
     <h1>I'm the stories app</h1>
     <p>Current user: <%= currentUserName %></p>
-    <a href="/logout">Logout</a>
 
     <div class="storyTitlesWrapper">
         <% stories.forEach(function(story) { %>
             <div id="storyTitles">
-                <form method="get" action="/story/<%= story['id'] %>">
-                    <h2> <%= story['title'] %></h2>
-                    <input type="submit" value="view / add to story">
-                    <input name = "storyId" type="hidden" value="<%= story['id'] %>">
-                </form>
+                <h2 class="storyTitleText"> <%= story['title'] %></h2>
+                
                 <% story['paragraphs'].forEach(function(para) { %>
                 <p> <%= para['content'] %></p>
                 <% }); %>
+                <form method="get" action="/story/<%= story['id'] %>">
+                    <input type="submit" value="view / add to story">
+                    <input name = "storyId" type="hidden" value="<%= story['id'] %>">
+                </form> 
             </div>
-        <% }); %>  
+        <% }); %> 
+        
     </div>
+
 <div class="addStoryWrapper">  
     <form action="/addstory" method="post">        
         <textarea cols="60", maxlength="70" name="addStoryInput", placeholder="Enter the title of your story", rows="4", title="Maximum length 70 characters", required></textarea>
