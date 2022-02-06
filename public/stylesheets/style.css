@@ -8,7 +8,6 @@
     font-size: 1.1875rem;
     font-size: clamp(1.1875rem, 1.175rem + 0.0625vw, 1.25rem);
     
-    
 }
 * body {
     overflow-x: hidden;
@@ -16,7 +15,7 @@
     background-color: lightgray;
     /* For footer to stay at bottom!!! */
     position: relative;
-    padding-bottom: 2.5rem;
+    padding-bottom: 4rem;
    
 }
 
@@ -94,17 +93,25 @@ nav ul li a:hover, nav ul li a:focus {
     width: 100%;
     position: absolute;
     bottom: 0;
-    /* may need to set height to match body padding-bottom */
+    display: flex;
+    align-content: center;
+    justify-content: center;
+    background-color: black;
+    padding-top: 5px;
+    color: white;
 }
 
-.footerBottom {
-    background-color: #171717;
-    color: white;
-    
-}
 /*footer end*/
 
 /* home page styling */
+.appTitle {
+    font-family: 'Berkshire Swash', cursive;
+    font-size: 1.875rem;
+    font-size: clamp(1.875rem, 1.75rem + 0.625vw, 2.5rem);
+    text-align: center;
+    padding-top: 30px;
+
+}
 .storyTitlesWrapper {
     display: flex;
     flex-direction: column;
@@ -120,15 +127,34 @@ nav ul li a:hover, nav ul li a:focus {
 }
 .storyTitleText {
     text-align: center;
+    text-transform: capitalize;
 }
 .addStoryWrapper {
     display: flex;
-    max-width: 100px;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
 }
 
 textarea {
     width: 90vw;
 }
+/* start story page styling */
+#storyWrapperMain {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
+#storyWrapper {
+    width: 90%;
+    border: 1px solid black;
+    background-color: white;
+    padding: 10px;
+}
+
+/* end story page styling */
 
 /* start form styling */
 .userFormWrapperMain {
@@ -171,6 +197,13 @@ textarea {
     
     padding-top: 16px;
 }
+#addToStoryFormWrapperMain {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
+
 /* end form styling */
 
 /*Tablet sizes---------------------------------------------------------*/
@@ -250,7 +283,7 @@ textarea {
     nav ul {
         max-height: 178px;
         padding: 55px 25px 0 0;;
-        padding-right: 150px;
+        padding-right: 75px;
         align-items: center;
         text-align: right;
         /* font-size: 28px; */
@@ -263,7 +296,7 @@ textarea {
     .logo-img {
         max-width: 100%;
         height: auto;
-        padding-left: 150px;
+        padding-left: 75px;
     }
     #checkbox:checked ~ nav ul {
         padding-top: 55px;
