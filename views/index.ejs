@@ -29,13 +29,15 @@
         
     </div>
 
-<div class="addStoryWrapper">  
-    <form action="/addstory" method="post">        
-        <textarea cols="60", maxlength="70" name="addStoryInput", placeholder="Enter the title of your story", rows="4", title="Maximum length 70 characters", required></textarea>
-        <br>
-        <input type="submit" value="Start a new story">
-    </form>
-</div>
-<%- include('../views/partials/footer.ejs'); %>
+    <div class="addStoryWrapper">  
+        <form action="/addstory" method="post">        
+            <textarea cols="60", maxlength="70" name="addStoryInput", placeholder="Enter the title of your story", rows="4", title="Maximum length 70 characters", required></textarea>
+            <br>
+            <input type="submit" value="Start a new story">
+        </form>
+    </div>
+
+    <%- include('../views/partials/footer.ejs'); %>
+
 </body>
 </html>

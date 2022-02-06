@@ -1,19 +1,23 @@
 /*style.css*/
 /*mobile first*/
 
-
 * {
     box-sizing: border-box;
     margin: 0px;
-    
     /*univeral fluid text size*/
     font-size: 1.1875rem;
     font-size: clamp(1.1875rem, 1.175rem + 0.0625vw, 1.25rem);
+    
+    
 }
 * body {
     overflow-x: hidden;
     min-height: 100vh;
     background-color: lightgray;
+    /* For footer to stay at bottom!!! */
+    position: relative;
+    padding-bottom: 2.5rem;
+   
 }
 
 /*Header start*/
@@ -21,14 +25,11 @@ header {
     background-color: black;
     padding: 10px 0;
     box-shadow: 0 1px 0 rgb(0 0 0 / 10%);
-    
-    
 }
 .menu-wrap {
     display: flex;
     justify-content: space-between;
     padding: 0px 35px 0px 0;
-    /* anything besides 124px height will not work out with current layout */
     height: 124px;
 }
 .logo-img {
@@ -88,18 +89,14 @@ nav ul li a:hover, nav ul li a:focus {
 /*Header end*/
 
 /*footer start*/
+
 .footerWrapper {
-    display: flex;
-    flex-direction: column;
     width: 100%;
-    /* position: absolute; */
+    position: absolute;
     bottom: 0;
+    /* may need to set height to match body padding-bottom */
 }
-.footerTop {
-    background-color: #2d2d2d;
-    color: white;
-    
-}
+
 .footerBottom {
     background-color: #171717;
     color: white;
@@ -133,7 +130,7 @@ textarea {
     width: 90vw;
 }
 
-/* form styling */
+/* start form styling */
 .userFormWrapperMain {
     display: flex;
     justify-content: center;
@@ -146,7 +143,8 @@ textarea {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    width: 80%;
+    width: 90%;
+    margin-top: 30%;
     height: auto;
     border: 1px solid black;
     background-color: white;
@@ -155,7 +153,6 @@ textarea {
 }
 #userForm {
     display: block;
-   
     width: 100%;
     height: 100%;
 }
@@ -174,6 +171,8 @@ textarea {
     
     padding-top: 16px;
 }
+/* end form styling */
+
 /*Tablet sizes---------------------------------------------------------*/
 @media (min-width: 768px) {
 
@@ -216,7 +215,16 @@ textarea {
         color: #F0F0E4;
     }
     /*Header end*/
+
+    /* start form styling */
+    .userFormWrapper {
+        margin-top: 10%;
+        width: 60%;
+    }
+    
+    /* end form styling */
 }
+
 /*Desktop sizes*-----------------------------------------------------*/
 
 @media (min-width: 1200px) { 
@@ -262,6 +270,14 @@ textarea {
         padding-right: 150px;
         border: none;
     }
+    /* start form styling */
+    
+    .userFormWrapper {
+        margin-top: 10%;
+        width: 50%;
+    }
+    
+    /* end form styling */
     
 }
 /*Header end*/

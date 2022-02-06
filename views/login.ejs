@@ -1,24 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
 <head>
     <%- include('../views/partials/head.ejs'); %>
 </head>
 
-<h2>Login</h2>
-<div class="userFormWrapperMain">
-    <div class="userFormWrapper">
-        <form method="post" action="/login" id="userForm">
-            <div class="fieldLabelForm">
-                <label for="username">Username</label>
-                <input type="text" id="username" minlength="3" maxlength="14" name="username" pattern="[A-Za-z0-9]+" placeholder="username" title="Username (letters and numbers only, no punctuation or special characters. Must be between 3-14 characters)" required>
-            </div>
-            <div class="fieldLabelForm">
-                <label for="password">Password</label>
-                <input type="password" id="password" minlength="6" maxlength="18" name="password" pattern="[A-Za-z0-9-_!@#$%^&*]+" placeholder="password" title="Password (letters, numbers, and -_!@#$%^&*() characters. Must be bettween 6-18 characters)" required>
-            </div>
-            <input type="submit" value="login">
-            <p class="userFormBottomTxt">Not a member yet? <a href="/signup">Signup</p></a>
-        </form>
+
+    <div class="userFormWrapperMain">
+        
+        <div class="userFormWrapper">
+            <h2>Login</h2>
+            <form method="post" action="/login" id="userForm">
+                <div class="fieldLabelForm">
+                    <label for="username">Username</label>
+                    <input type="text" id="username" minlength="3" maxlength="14" name="username" pattern="[A-Za-z0-9]+" title="Username (letters and numbers only, no punctuation or special characters. Must be between 3-14 characters)" required>
+                </div>
+                <div class="fieldLabelForm">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" minlength="6" maxlength="18" name="password" pattern="[A-Za-z0-9-_!@#$%^&*]+" title="Password (letters, numbers, and -_!@#$%^&*() characters. Must be bettween 6-18 characters)" required>
+                </div>
+                <input type="submit" value="login">
+                <p class="userFormBottomTxt">Not a member yet? <a href="/signup">Signup</p></a>
+            </form>
+        </div>
     </div>
-</div>
 
+    <%- include('../views/partials/footer.ejs'); %>
 
-
+</body>
+</html>
