@@ -39,12 +39,6 @@ exports.viewStory = function(req, res, next) {
 // POST request /addparagraph from form on /addparagraph
 exports.addParagraph = function(req, res, next) {
     
-    // Do a check here to see if there is a paragraph to submit
-    // This /story POST is shared between the button on the home page to view a story and submitting a paragraph on /story
-    // if(!req.body.paragraph_input) {
-    //     next();
-    // };
-    
     let paragraphInput = req.body.paragraph_input;
     let userId = req.session.user['id'];
     let storyId = req.body['storyId'];

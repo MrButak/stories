@@ -72,3 +72,10 @@ exports.logout = (req, res) => {
 exports.validate = (req, res) => {
   console.log("hey there");
 };
+
+
+// GET request
+exports.userProfile = (req, res) => {
+    let currentUser = req.query;
+    res.render('user', {currentUser: currentUser});
+};
