@@ -8,7 +8,6 @@ exports.userNameAvailable = (username) => {
     let db = new Database('public/javascripts/data/stories.db');
     let userStmt = db.prepare('SELECT user_name FROM users WHERE user_name LIKE (?)');
     let userName = userStmt.get(username);
-
     db.close();
     return userName;
 };
@@ -34,7 +33,6 @@ exports.tryLogin = (username, password) => {
     // Get users credentials
     let user = db.prepare('SELECT user_name, encrypted_password FROM users WHERE user_name LIKE (?)').get(username);
     db.close();
-    
     return (user && 
     hashing.comparePassword(password, user['encrypted_password']));
      

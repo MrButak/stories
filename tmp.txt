@@ -1,0 +1,18 @@
+    <!-- <p><%= currentuser %></p> -->
+<!-- userstories -->
+    <!-- <div class="storyTitlesWrapper">
+        <% userstories.forEach(function(story) { %>
+            <div id="storyTitles">
+                <h2 class="storyTitleText"> <%= story['title'] %></h2> -->
+            
+                <!-- <% story['paragraphs'].forEach(function(para) { %>
+                <p> <%= para['content'] %></p>
+                <% }); %> -->
+                <!-- <form method="get" action="/story/<%= story['id'] %>">
+                    <input type="submit" value="view story">
+                    <input name = "storyId" type="hidden" value="<%= story['id'] %>">
+                </form> 
+            </div>
+        <% }); %> 
+    </div> -->
+    

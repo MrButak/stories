@@ -29,7 +29,7 @@ router.get('/logout', users.logout);
 router.post('/logout', users.logout);
 
 //user profile
-router.get('/user', handleAuth.requireLogin, handleAuth.currentUser, users.userProfile);
+router.get('/user/:currentUserName', handleAuth.requireLogin, handleAuth.currentUser, users.userProfile);
 
 
 module.exports = router;

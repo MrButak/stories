@@ -6,11 +6,27 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Stories</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.0-2/css/all.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="../stylesheets/style.css">
-    <!-- <%- include('../views/partials/head.ejs'); %> -->
+    <link rel="stylesheet" href="../stylesheets/style.css"> -->
+    
 </head>
 <body>
     <h1> hey you made it to the users page</h1>
-    <%= currentUser %>
+
+    <!-- userstories -->
+    <div class="storyTitlesWrapper">
+        <% userstories.forEach(function(story) { %>
+            <div id="storyTitles">
+                <h2 class="storyTitleText"> <%= story['title'] %></h2>
+            
+                
+                <form method="get" action="/story/<%= story['id'] %>">
+                    <input type="submit" value="view story">
+                    <input name = "storyId" type="hidden" value="<%= story['id'] %>">
+                </form> 
+            </div>
+        <% }); %> 
+    </div>
+
+
 </body>
 </html>

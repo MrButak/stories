@@ -37,3 +37,12 @@ exports.getStory = (storyId) => {
     db.close();
     return(story);
 };
+
+// function gets all stories from specified user
+exports.allUserStories = (userName) => {
+    let db = new Database('public/javascripts/data/stories.db');
+    let userStories = db.prepare('SELECT * FROM stories INNER JOIN users ON stories.user_id = users.id WHERE users.user_name LIKE (?);').all(userName);
+    db.close();
+    console.log("Am I here ????????^^^^^^^^^^^^^^^^^%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%")
+    return(userStories);
+};

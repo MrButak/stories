@@ -2,7 +2,7 @@ const Database = require('better-sqlite3');
 
 const users = require('../public/javascripts/data/user');
 const validate = require('../public/javascripts/validate');
-
+const storyManager = require("../public/javascripts/data/storyManager");
 
 // GET request /signup
 exports.signUp = function(req, res, next) {
@@ -76,6 +76,6 @@ exports.validate = (req, res) => {
 
 // GET request
 exports.userProfile = (req, res) => {
-    let currentUser = req.query;
-    res.render('user', {currentUser: currentUser});
+    let currentUser = req.query['username'];
+    res.render('user', { currentuser: currentUser, userstories: storyManager.allUserStories(currentUser) });
 };
