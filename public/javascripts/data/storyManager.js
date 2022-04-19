@@ -13,30 +13,24 @@ client.connect();
 exports.displayAllStories = async () => {
 
     
+    // create an arry of objects. each obj holds the story title and up to 5 paragraphs
     let storyArry = [];
     let storyObj = {};
     let text = 'SELECT * FROM stories ORDER BY id DESC';
     let allStories = await client.query(text);
     
     
-    // Get the first five paragraphs (if that many) from each story.
-    
+    // Get the first five paragraphs (if that many) with each story.
     for(let i = 0; i < allStories.rows.length; i++) {
+        storyObj = {};
         let textStmt = 'SELECT * from paragraphs WHERE stories_id = ($1) LIMIT 5';
         let values = [allStories.rows[i].id];
         let paragraph = await client.query(textStmt, values);
-        
-        
         storyObj['title'] = allStories.rows[i];
-        storyObj['paragraphs'] = paragraph.rows[0];
+        storyObj['paragraphs'] = paragraph.rows;
         storyArry.push(storyObj)
     };
-    // console.log('storyManager.js displayAllStories ^^^^^^')
-    // console.log(storyArry)
-    // console.log('storyManager.js displayAllStories ^^^^^^')
-
-
-   
+    
     return(storyArry);
 };
 
@@ -57,20 +51,29 @@ exports.addStory = async (storyTitle, userId) => {
 // Function gets 1 story and all of it's paragraphs
 exports.getStory = async (storyId) => {
 
-    let story = {};
+    // gets 1 story and all paragraphs associated with it
+    let storyObj = {
+        'title': null,
+        'paragraphs': []
+    };
     let text = 'SELECT * FROM stories WHERE id = ($1)';
     let values = [storyId];
     let res = await client.query(text, values);
-    story['paragraphs'] = res.rows
-    console.log(res.rows);
-    console.log('storyManager.js getStory');
-    // Add the paragraphs as a property
-    // let db = new Database('public/javascripts/data/stories.db');
-    // let story = db.prepare('SELECT * FROM stories WHERE id = (?)').get(storyId);
-    // db.close();
+
+// TODO
+// 1. if no paragraphs for a story
+    storyObj['title'] = res.rows[0];
+    let stmtTwo = 'SELECT * FROM paragraphs WHERE stories_id = ($1) ORDER BY id ASC';
+    let dbValuesTwo = [storyId];
+    let paragraphs = await client.query(stmtTwo, dbValuesTwo);
+
+    for(let i = 0; i < paragraphs.rows.length; i++) {
+
+        storyObj['paragraphs'].push(paragraphs.rows[i]);
+    };
     
     
-    return(story);
+    return(storyObj);
 };
 
 // function gets all stories from specified user

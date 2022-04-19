@@ -1,21 +1,17 @@
 const storyManager = require('../public/javascripts/data/storyManager');
 const paragraph = require('../public/javascripts/data/paragraph');
+const { json } = require('express/lib/response');
 
 exports.getAllStories = async (req, res, next) => {
     
     let currentUserName = req.session.user;
     let allStories = await storyManager.displayAllStories();
-    // let allStories = {
-    //     title: 'The Title Of the Story'
-    // }
     allStories = JSON.parse((JSON.stringify(allStories)));
-    console.log(allStories)
-    console.log('allStories ^^^^^^ sent to frontend')
-    res.render('index', { stories: allStories, currentUserName: 'bob'});
+    res.render('index', { stories: allStories, currentUserName: currentUserName});
 };
 
 exports.addStory = function(req, res, next) {
-
+    
     // Idea: send user to the 'add to story' page, so they can start the first paragraph of their new story.
     let storyTitle = req.body.addStoryInput;
     let userId = req.session.user['id'];
@@ -24,33 +20,42 @@ exports.addStory = function(req, res, next) {
     res.redirect('/');
 };
 
-exports.viewStory = function(req, res, next) {
+exports.viewStory = async (req, res, next) => {
     
     let currentUserName = req.session.user['user_name'];
-    
+    let storyId;
     // GET request
     if(req.method == "GET") {
-
-       let storyId =  req.query['storyId'];
-       res.render(`story`, { story: storyManager.getStory(storyId), currentUserName: currentUserName });
+        
+        storyId =  req.query['storyId'];
+        
     }
     // POST request
     else {
-
-        let storyId = req.body['storyId'];
-        res.render('story', { story: storyManager.getStory(storyId), currentUserName: currentUserName });
+        
+        storyId = req.body['storyId'];
+        
+        
+        
     };
+    let storyObjOne = await storyManager.getStory(storyId);
+    storyObjOne = JSON.parse(JSON.stringify(storyObjOne));
+    
+    res.render(`story`, { story: storyObjOne, currentUserName: currentUserName });
     
 };
 
 // POST request /addparagraph from form on /addparagraph
-exports.addParagraph = function(req, res, next) {
+exports.addParagraph = async (req, res, next) => {
     
     let paragraphInput = req.body.paragraph_input;
-    let userId = req.session.user['id'];
+    let userName = req.session.user;
     let storyId = req.body['storyId'];
     
-    paragraph.insertParagraph(paragraphInput, userId, storyId);
-    next();
+    await paragraph.insertParagraph(paragraphInput, userName, storyId);
+    // let fullStory = await storyManager.getStory(storyId);
+    // fullStory = JSON.parse(JSON.stringify(fullStory));
+    // res.render('story', { story: fullStory, currentUserName: userName });
+    return;
   };
   

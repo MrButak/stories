@@ -7,15 +7,23 @@
 <%- include('../views/partials/header.ejs'); %>
 
 <body>
-
-    
     <h1 class="appTitle">Stories App</h1>
     <p>Current user: <%= currentUserName %></p>
 
     <div class="storyTitlesWrapper">
-        
-            <p><%= stories[0].title %></p>
-       
+        <% stories.forEach(function(story) { %>
+            <div id="storyTitles">
+                <h2> <%= story.title.title %></h2>
+                <% story.paragraphs.forEach(function(para) { %>
+                <p> <%= para.content %></p>
+                <% }); %>
+                <form method="get" action="/story/<%= story.title.id %>">
+                    
+                    <input type="submit" value="view / add to story">
+                    <input name = "storyId" type="hidden" value="<%= story.title.id %>">
+                </form>
+            </div>
+        <% }); %>  
     </div>
 
     <div class="addStoryWrapper">  
@@ -27,6 +35,5 @@
     </div>
 
     <%- include('../views/partials/footer.ejs'); %>
-    
 </body>
 </html>

@@ -11,7 +11,6 @@ const res = require('express/lib/response');
 // router.get('/', handleAuth.requireLogin, handleAuth.currentUser, stories.getAllStories);
 
 router.get('/', (req, res) => {
-    // res.redirect('/login');
 
     if(!handleAuth.requireLogin){
         console.log('its false')
@@ -19,18 +18,55 @@ router.get('/', (req, res) => {
         return;
     } 
     else {
-        handleAuth.currentUser(req, res)
+        handleAuth.currentUser(req, res);
         stories.getAllStories(req, res);
+        
     }    
 });
 
 
 // view story POST from form on '/ homepage' and submit paragraph on '/story'
-router.post('/story', handleAuth.requireLogin, handleAuth.currentUser, stories.addParagraph, stories.viewStory);
-router.get('/story/:id', handleAuth.requireLogin, handleAuth.currentUser, stories.viewStory);
+router.post('/story', (req, res) => {
+
+    if(handleAuth.requireLogin(req, res)) {
+
+        handleAuth.currentUser(req, res);
+        stories.addParagraph(req, res);
+        stories.viewStory(req, res);
+    }
+    else {
+        res.redirect('/login');
+    };
+    
+});
+
+router.get('/story/:id', (req, res) => {
+
+    if(handleAuth.requireLogin(req, res)) {
+        handleAuth.currentUser(req, res); 
+        stories.viewStory(req, res);
+    }
+    else {
+        res.redirect('/login');
+    };
+    
+});
 
 // add story POST from form on '/ homepage'. Redirects back to '/ homepage'
-router.post('/addstory', handleAuth.requireLogin, handleAuth.currentUser, stories.addStory);
+router.post('/addstory', (req, res) => {
+
+    if(handleAuth.requireLogin(req, res)) {
+
+        handleAuth.currentUser(req, res);
+        stories.addStory(req, res);
+    }
+    else {
+
+        res.redirect('/login');
+        
+    };
+    
+});
 
 // login page
 router.get('/login', (req, res) => {
