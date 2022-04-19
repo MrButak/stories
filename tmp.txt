@@ -1,0 +1,7 @@
+<% story['paragraphs'].forEach(function(para) { %>
+                <p> <%= para['content'] %></p>
+                <% }); %>
+                <form method="get" action="/story/<%= story['id'] %>">
+                    <input type="submit" value="view / add to story">
+                    <input name = "storyId" type="hidden" value="<%= story['id'] %>">
+                </form> 

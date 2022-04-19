@@ -14,7 +14,7 @@ const client = new Client({
 client.connect();
 
 // Function writes paragraph to the database
-exports.insertParagraph = (paragraph, userId, storiesId) => {
+exports.insertParagraph = async (paragraph, userId, storiesId) => {
 
 
     const text = 'INSERT INTO paragraphs (user_id, stories_id, content) VALUES ($1, $2, $3)'

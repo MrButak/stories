@@ -1,5 +1,13 @@
 const Database = require('better-sqlite3');
-
+const { Pool, Client } = require('pg')
+const dotenv = require("dotenv");
+const client = new Client({
+    connectionString: 'postgres://postgres:postgres@localhost:5432/stories',//process.env.DATABASE_URL,
+    ssl: {
+        rejectUnauthorized: false
+    }
+});
+client.connect();
 const users = require('../public/javascripts/data/user');
 const validate = require('../public/javascripts/validate');
 const storyManager = require("../public/javascripts/data/storyManager");
@@ -34,29 +42,39 @@ exports.signUpUser = function(req, res, next) {
 // GET request /login
 exports.log_in = function(req, res, next) {
 
-  res.render('login');
+    res.render('login');
 };
 
 // POST request /login
-exports.checkLogin = function(req, res, next) {
+exports.checkLogin = async (req, res, next)  => {
 
-  let username = req.body.username;
-  let password = req.body.password;
-
-  // If login in successful
-  if(users.tryLogin(username, password) &&
-  validate.validateUserForm(username, password)) {
+    let username = req.body.username;
+    let password = req.body.password;
+    
+    // If login successful
+    if(users.tryLogin(username, password) &&
+    validate.validateUserForm(username, password)) {
 
     // Write user information to req.sessions
-    let db = new Database('public/javascripts/data/stories.db');
-    let user = db.prepare('SELECT * FROM users WHERE user_name LIKE (?)').get(username);
-    req.session.user = user
+    // let db = new Database('public/javascripts/data/stories.db');
+    // let user = db.prepare('SELECT * FROM users WHERE user_name LIKE (?)').get(username);
+        try {
+            let text = 'SELECT * FROM users WHERE user_name ILIKE ($1)';
+            let values = [username];
+            let res = await client.query(text, values);
+            req.session.user = res.rows[0].user_name;
+            console.log('res.rows users.js checkLogin()');
+
+            res.redirect('/');
+
+        }
+        catch(err) {
+            console.log(err)
+        };
     
-    res.redirect('/');
-    
-  }
-  // login unsuccessful
-  res.redirect('login'); // TODO: send failed login error message to views/login
+    }
+    // login unsuccessful
+    res.redirect('login'); // TODO: send failed login error message to views/login
 };
 
 // Function destroys user session and redirects to login page

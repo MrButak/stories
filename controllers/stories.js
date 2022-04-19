@@ -1,10 +1,17 @@
 const storyManager = require('../public/javascripts/data/storyManager');
 const paragraph = require('../public/javascripts/data/paragraph');
 
-exports.getAllStories = function(req, res, next) {
-
-    let currentUserName = req.session.user['user_name'];
-    res.render('index', { stories: storyManager.displayAllStories(), currentUserName: currentUserName});
+exports.getAllStories = async (req, res, next) => {
+    
+    let currentUserName = req.session.user;
+    let allStories = await storyManager.displayAllStories();
+    // let allStories = {
+    //     title: 'The Title Of the Story'
+    // }
+    allStories = JSON.parse((JSON.stringify(allStories)));
+    console.log(allStories)
+    console.log('allStories ^^^^^^ sent to frontend')
+    res.render('index', { stories: allStories, currentUserName: 'bob'});
 };
 
 exports.addStory = function(req, res, next) {

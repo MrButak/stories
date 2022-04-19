@@ -10,42 +10,38 @@ const client = new Client({
 });
 client.connect();
 
-exports.displayAllStories = () => {
+exports.displayAllStories = async () => {
 
-    // Get all stories (an array of objects)
+    
+    let storyArry = [];
+    let storyObj = {};
     let text = 'SELECT * FROM stories ORDER BY id DESC';
     let allStories = await client.query(text);
     
+    
     // Get the first five paragraphs (if that many) from each story.
-    let i = allStories.length;
-    allStories.rows.forEach( (story) => {
-        let textStmt = 'SELECT * from paragraphs WHERE stories_id = (?) LIMIT 5';
-        let paragraph = await client.query(textStmt);
-        story['paragraphs'] = paragraph;
-        i--;
-    });
-    console.log(allStories.rows)
-    console.log('storyManager.js displayAllStories')
+    
+    for(let i = 0; i < allStories.rows.length; i++) {
+        let textStmt = 'SELECT * from paragraphs WHERE stories_id = ($1) LIMIT 5';
+        let values = [allStories.rows[i].id];
+        let paragraph = await client.query(textStmt, values);
+        
+        
+        storyObj['title'] = allStories.rows[i];
+        storyObj['paragraphs'] = paragraph.rows[0];
+        storyArry.push(storyObj)
+    };
+    // console.log('storyManager.js displayAllStories ^^^^^^')
+    // console.log(storyArry)
+    // console.log('storyManager.js displayAllStories ^^^^^^')
 
 
-    // // Get all stories (an array of objects)
-    // let db = new Database('public/javascripts/data/stories.db');
-    // let allStories = db.prepare('SELECT * FROM stories ORDER BY id DESC').all();
-
-    // // Get the first five paragraphs (if that many) from each story.
-    // let i = allStories.length;
-    // allStories.forEach( (story) => {
-    //     let paraStmt = db.prepare('SELECT * from paragraphs WHERE stories_id = (?) LIMIT 5');
-    //     story['paragraphs'] = paraStmt.all(i);
-    //     i--;
-    // });
-
-    // db.close();
-    return(allStories);
+   
+    return(storyArry);
 };
 
 // Function writes a new story (title) to the database
-exports.addStory = (storyTitle, userId) => {
+exports.addStory = async (storyTitle, userId) => {
 
     let text = 'INSERT INTO stories (user_id, title) VALUES ($1, $2)';
     let values = [userId, storyTitle];
@@ -59,7 +55,7 @@ exports.addStory = (storyTitle, userId) => {
 };
 
 // Function gets 1 story and all of it's paragraphs
-exports.getStory = (storyId) => {
+exports.getStory = async (storyId) => {
 
     let story = {};
     let text = 'SELECT * FROM stories WHERE id = ($1)';
@@ -78,7 +74,7 @@ exports.getStory = (storyId) => {
 };
 
 // function gets all stories from specified user
-exports.allUserStories = (userName) => {
+exports.allUserStories = async (userName) => {
 
     let text = 'SELECT * FROM stories INNER JOIN users ON stories.user_id = users.id WHERE users.user_name LIKE ($1)';
     let values = [userName];

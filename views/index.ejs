@@ -8,24 +8,14 @@
 
 <body>
 
+    
     <h1 class="appTitle">Stories App</h1>
     <p>Current user: <%= currentUserName %></p>
 
     <div class="storyTitlesWrapper">
-        <% stories.forEach(function(story) { %>
-            <div id="storyTitles">
-                <h2 class="storyTitleText"> <%= story['title'] %></h2>
-                
-                <% story['paragraphs'].forEach(function(para) { %>
-                <p> <%= para['content'] %></p>
-                <% }); %>
-                <form method="get" action="/story/<%= story['id'] %>">
-                    <input type="submit" value="view / add to story">
-                    <input name = "storyId" type="hidden" value="<%= story['id'] %>">
-                </form> 
-            </div>
-        <% }); %> 
         
+            <p><%= stories[0].title %></p>
+       
     </div>
 
     <div class="addStoryWrapper">  
