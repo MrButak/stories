@@ -4,22 +4,28 @@ var router = express.Router();
 const users = require('../controllers/users');
 const handleAuth = require('../public/javascripts/handleAuth');
 const stories = require('../controllers/stories');
-const res = require('express/lib/response');
 
 
+
+// router.post('/', (req, res) => {
+
+//     if(!handleAuth.requireLogin){
+//         res.redirect('/login');
+//     } 
+//     else {
+//         handleAuth.currentUser(req, res);
+//         stories.getAllStories(req, res);
+//     };
+// });
 
 router.get('/', (req, res) => {
-
-    if(!handleAuth.requireLogin){
-        console.log('its false')
+    if(!handleAuth.requireLogin(req, res)){
         res.redirect('/login');
-        return;
     } 
     else {
         handleAuth.currentUser(req, res);
         stories.getAllStories(req, res);
-        
-    }    
+    };
 });
 
 
@@ -74,16 +80,29 @@ router.get('/login', (req, res) => {
     }
     
 
-}); 
-router.post('/login', users.checkLogin);
+});
+
+router.post('/login', (req, res) => {
+    users.checkLogin(req, res)
+});
 
 // signup page
-router.get('/signup', users.signUp);
-router.post('/signup', users.signUpUser);
+router.get('/signup', (req, res) => {
+    res.render('signup');
+});
+
+router.post('/signup', (req, res) => {
+    users.signUpUser(req, res)
+});
 
 // logout
-router.get('/logout', users.logout);
-router.post('/logout', users.logout);
+router.get('/logout', (req, res) => {
+    users.logout(req, res);
+});
+
+router.post('/logout', (req, res) => {
+    users.logout(req, res);
+});
 
 //user profile
 router.get('/user/:currentUserName', handleAuth.requireLogin, handleAuth.currentUser, users.userProfile);

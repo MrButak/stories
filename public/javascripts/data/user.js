@@ -1,8 +1,8 @@
+const dotenv = require("dotenv");
 const hashing = require('../hashing');
 const { Pool, Client } = require('pg')
-const dotenv = require("dotenv");
 const client = new Client({
-    connectionString: process.env.DATABASE_URL,
+    connectionString: 'postgres://postgres:postgres@localhost:5432/stories',//process.env.DATABASE_URL,
     ssl: {
         rejectUnauthorized: false
     }
@@ -12,10 +12,13 @@ client.connect();
 // Function returns user inputted username from database. Will return undefined if available.
 exports.userNameAvailable = async (username) => {
     
-    let text = 'SELECT user_name FROM users WHERE user_name ILIKE ($1)';
+    let text = 'SELECT * FROM users WHERE user_name ILIKE ($1)';
     let values = [username];
-    let res = await client.query(text, values);
-    return res.rows[0];
+    let userName = await client.query(text, values);
+    if(userName.rows.length > 0) {
+        return true;
+    };
+    return false;
 };
 
 // Function writes new user credentials to database
@@ -31,14 +34,16 @@ exports.writeUserToDatabase = async (username, password) => {
 // Function compares user inputted login credentials to database
 exports.tryLogin = async (username, password) => {
 
-    let text = 'SELECT user_name, encrypted_password FROM users WHERE user_name LIKE ($1)';
+    let text = 'SELECT * FROM users WHERE user_name ILIKE ($1)';
     let values = [username];
-    let res = await client.query(text, values);
-    let user = res.rows[0]
-    console.log(res.rows);
-    console.log('users.js tryLogin')
-
-    return (user && 
-    hashing.comparePassword(password, user.encrypted_password));
+    let userInfo = await client.query(text, values);
+    if(userInfo.length > 0) {
+        return true &&
+        hashing.comparePassword(password, userInfo.rows[0].encrypted_password);
+    };
+    return false &&
+    hashing.comparePassword(password, userInfo.rows[0].encrypted_password);
+    
+    
      
 };
