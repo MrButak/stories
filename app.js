@@ -32,7 +32,8 @@ app.use(session({
         sameSite: true 
     },
     resave: false,
-    saveUninitialized: false
+    saveUninitialized: false,
+    rejectUnauthorized: false
     // Insert express-session options here
 }));
 
