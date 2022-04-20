@@ -18,7 +18,10 @@ app.set('view engine', 'ejs');
 app.set('trust proxy', 1);
 app.use(session({
     store: new (require('connect-pg-simple')(session))({
-    // Insert connect-pg-simple options here
+        conObject: {
+            connectionString: process.env.DATABASE_URL,
+            ssl: true,
+          },
     }),
     secret: 'keyboardcat',//process.env.FOO_COOKIE_SECRET,
     resave: false,
