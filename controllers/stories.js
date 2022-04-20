@@ -21,7 +21,7 @@ exports.addStory = function(req, res, next) {
 
 exports.viewStory = async (req, res, next) => {
     
-    let currentUserName = req.session.user['user_name'];
+    let currentUserName = req.session.user.user_name;
     let storyId;
     // GET request
     if(req.method == "GET") {

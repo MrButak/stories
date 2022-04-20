@@ -84,6 +84,7 @@ exports.validate = (req, res) => {
 
 // GET request
 exports.userProfile = (req, res) => {
-    let currentUser = req.query['username'];
+    // let currentUser = req.query['username'];
+    
     res.render('user', { currentuser: currentUser, userstories: storyManager.allUserStories(currentUser) });
 };
