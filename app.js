@@ -32,14 +32,13 @@ pgPool.connect();
 
 
 
-app.set('trust proxy', true);
-// app.set('trust proxy', 1);
+// app.set('trust proxy', true);
+app.set('trust proxy', 1);
 
 app.use(expressSession({
     store: new pgSession({
-      pool : pgPool                // Connection pool
-         // Use another table-name than the default "session" one
-      // Insert connect-pg-simple options here
+      pool : pgPool
+      
     }),
     secret: process.env.FOO_COOKIE_SECRET,
     resave: false,
@@ -56,15 +55,6 @@ app.use(expressSession({
     saveUninitialized: false
     // Insert express-session options here
 }));
-
-
-
-
-
-
-
-
-
 
 
 // app.use(session({
