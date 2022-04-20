@@ -58,10 +58,11 @@ exports.checkLogin = async (req, res, next)  => {
         console.log(req.session.user)
         console.log('should be a successful login%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%5')
         res.render('/');
+        return;
     }
 
     else {
-
+        
         // login unsuccessful
         res.redirect('login'); // TODO: send failed login error message to views/login
     };
