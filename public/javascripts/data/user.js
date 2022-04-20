@@ -1,4 +1,4 @@
-const dotenv = require("dotenv");
+require('dotenv').config({ path: require('find-config')('.env') });
 const hashing = require('../hashing');
 const { Pool, Client } = require('pg')
 const client = new Client({
