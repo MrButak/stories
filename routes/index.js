@@ -17,9 +17,11 @@ router.get('/', (req, res) => {
     } 
     else {
         handleAuth.currentUser(req, res);
-        stories.getAllStories(req, res); 
-    };
+        stories.getAllStories(req, res);
+        
+    }    
 });
+
 
 // to add paragraph to story
 router.post('/story', (req, res) => {
@@ -31,7 +33,8 @@ router.post('/story', (req, res) => {
     }
     else {
         res.redirect('/login');
-    }; 
+    };
+    
 });
 
 router.get('/story/:id', (req, res) => {
@@ -43,6 +46,7 @@ router.get('/story/:id', (req, res) => {
     else {
         res.redirect('/login');
     };
+    
 });
 
 // add story POST from form on '/ homepage'. Redirects back to '/ homepage'
@@ -56,7 +60,9 @@ router.post('/addstory', (req, res) => {
     else {
 
         res.redirect('/login');
+        
     };
+    
 });
 
 // login page
@@ -65,7 +71,9 @@ router.get('/login', (req, res) => {
     if(!handleAuth.isLoggedIn(req, res)) {
         console.log("shoud be false here!!")
         users.log_in(req, res)
-    };
+    }
+    
+
 }); 
 router.post('/login', users.checkLogin);
 
@@ -77,7 +85,8 @@ router.post('/signup', users.signUpUser);
 router.get('/logout', users.logout);
 router.post('/logout', users.logout);
 
-//user profile // TODO
+//user profile
 router.get('/user/:currentUserName', handleAuth.requireLogin, handleAuth.currentUser, users.userProfile);
+
 
 module.exports = router;

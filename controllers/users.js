@@ -1,15 +1,13 @@
+const Database = require('better-sqlite3');
 const { Pool, Client } = require('pg')
 const dotenv = require("dotenv");
-
 const client = new Client({
-    connectionString: process.env.DATABASE_URL,
+    connectionString: 'postgres://postgres:postgres@localhost:5432/stories',//process.env.DATABASE_URL,
     ssl: {
-        require: true,
         rejectUnauthorized: false
     }
 });
 client.connect();
-
 const users = require('../public/javascripts/data/user');
 const validate = require('../public/javascripts/validate');
 const storyManager = require("../public/javascripts/data/storyManager");
@@ -58,11 +56,14 @@ exports.checkLogin = async (req, res, next)  => {
     validate.validateUserForm(username, password)) {
 
     // Write user information to req.sessions
+    // let db = new Database('public/javascripts/data/stories.db');
+    // let user = db.prepare('SELECT * FROM users WHERE user_name LIKE (?)').get(username);
         try {
             let text = 'SELECT * FROM users WHERE user_name ILIKE ($1)';
             let values = [username];
             let res = await client.query(text, values);
             req.session.user = res.rows[0].user_name;
+            console.log('res.rows users.js checkLogin()');
 
             res.redirect('/');
 
@@ -91,7 +92,7 @@ exports.validate = (req, res) => {
 };
 
 
-// GET request TODO
+// GET request
 exports.userProfile = (req, res) => {
     let currentUser = req.query['username'];
     res.render('user', { currentuser: currentUser, userstories: storyManager.allUserStories(currentUser) });

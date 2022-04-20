@@ -1,3 +1,4 @@
+
 exports.validateUserForm = (username, password) => {
     
     // Username is only allowed letters and number
