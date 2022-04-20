@@ -5,7 +5,7 @@
   "scripts": {
     "start": "node ./bin/www",
     "dev": "./node_modules/nodemon/bin/nodemon app.js",
-    "heroku-postbuild": "build.sh"
+    "heroku-postbuild": "node main.js"
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",
