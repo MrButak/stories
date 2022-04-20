@@ -30,8 +30,6 @@ const pgPool = new pg.Pool({
 
 pgPool.connect();
 
-
-
 // app.set('trust proxy', true);
 app.set('trust proxy', 1);
 
@@ -55,32 +53,6 @@ app.use(expressSession({
     saveUninitialized: false
     // Insert express-session options here
 }));
-
-
-// app.use(session({
-//     store: new (require('connect-pg-simple')(session))({
-//         conObject: {
-//             connectionString: process.env.DATABASE_URL,
-//             rejectUnauthorized: false
-//             // ssl: true,
-//           },
-//     }),
-//     secret: 'keyboardcat',//process.env.FOO_COOKIE_SECRET,
-//     resave: false,
-//     expired: {
-//         clear: true,
-//         intervalMs: 1000 * 60 * 60 * 24 //ms = 24 hours
-//     },
-//     cookie: { 
-//         // maxAge: 30 * 24 * 60 * 60 * 1000,
-//         secure: true,
-//         sameSite: 'none'
-//     },
-//     // resave: false,
-//     saveUninitialized: false
-//     // rejectUnauthorized: false
-//     // Insert express-session options here
-// }));
 
 app.use(logger('dev'));
 app.use(express.json());

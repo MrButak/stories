@@ -3,7 +3,7 @@ const paragraph = require('../public/javascripts/data/paragraph');
 
 exports.getAllStories = async (req, res, next) => {
     
-    let currentUserName = req.session.user;
+    let currentUserName = req.session.user.user_name;
     let allStories = await storyManager.displayAllStories();
     allStories = JSON.parse((JSON.stringify(allStories)));
     res.render('index', { stories: allStories, currentUserName: currentUserName});
