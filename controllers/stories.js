@@ -47,7 +47,7 @@ exports.addParagraph = async (req, res, next) => {
     console.log(req.session)
     console.log("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^")
     let paragraphInput = req.body.paragraph_input;
-    let userName = req.session.user;
+    let userName = req.session.user.user_name;
     let storyId = req.body['storyId'];
     
     await paragraph.insertParagraph(paragraphInput, userName, storyId);
