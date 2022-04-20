@@ -2,7 +2,7 @@ const { Pool, Client } = require('pg')
 const dotenv = require("dotenv");
 
 const client = new Client({
-    connectionString: 'postgres://postgres:postgres@localhost:5432/stories',//process.env.DATABASE_URL,
+    connectionString: process.env.DATABASE_URL,
     ssl: {
         rejectUnauthorized: false
     }

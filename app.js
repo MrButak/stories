@@ -24,7 +24,7 @@ app.use(session({
     store: new (require('connect-pg-simple')(session))({
     // Insert connect-pg-simple options here
     }),
-    secret: 'keyboardcat',//process.env.FOO_COOKIE_SECRET,
+    secret: process.env.FOO_COOKIE_SECRET,
     resave: false,
     expired: {
         clear: true,
@@ -32,6 +32,7 @@ app.use(session({
     },
     cookie: { 
         maxAge: 30 * 24 * 60 * 60 * 1000,
+        secure: true,
         sameSite: true 
     }, // 30 days
     resave: false,
