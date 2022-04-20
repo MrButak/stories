@@ -13,7 +13,7 @@ exports.addStory = function(req, res, next) {
     
     // Idea: send user to the 'add to story' page, so they can start the first paragraph of their new story.
     let storyTitle = req.body.addStoryInput;
-    let userName = req.session.user;
+    let userName = req.session.user.user_name;
     
     storyManager.addStory(storyTitle, userName);
     res.redirect('/');
@@ -43,9 +43,7 @@ exports.viewStory = async (req, res, next) => {
 
 // POST request /addparagraph from form on /addparagraph
 exports.addParagraph = async (req, res, next) => {
-    
-    console.log(req.session)
-    console.log("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^")
+
     let paragraphInput = req.body.paragraph_input;
     let userName = req.session.user.user_name;
     let storyId = req.body['storyId'];
@@ -53,7 +51,6 @@ exports.addParagraph = async (req, res, next) => {
     await paragraph.insertParagraph(paragraphInput, userName, storyId);
     let fullStory = await storyManager.getStory(storyId);
     fullStory = JSON.parse(JSON.stringify(fullStory));
-    console.log('can we make it here???????&&&&&&&&&&&&^^^^^^^^^^^ controllers/stories.js addParagraph()')
     res.render('story', { story: fullStory, currentUserName: userName });
     return;
   };
