@@ -28,11 +28,6 @@ Pool.connect();
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
-
-
-
-
-const expressSession = require('express-session');
 app.use(expressSession({
     store: new pgSession({
       pool : pgPool                // Connection pool
