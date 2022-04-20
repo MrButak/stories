@@ -1,0 +1,21 @@
+<!-- header -->
+<header class="menu">
+    <div class="menu-wrap">
+        <img src="/img/stories-logo-300x300-white.png" class="logo-img" alt="Logo">
+        <img src="/img/stories-logo-200x200-white.png" class="mobile-logo-img" alt="Logo">
+        <input type="checkbox" id="checkbox">
+        <nav>
+            <ul>
+                <li><a href="/">Home</a></li>
+                <form method="get" action="/user/<%= currentUserName %>">
+                    <input name = "username" type="hidden" value="<%= currentUserName %>">
+                    <li><button type="submit">User</button></li>
+                </form>
+                <li><a href="/logout">Logout</a></li>
+            </ul>
+        </nav>
+        <label for="checkbox">
+            <i class="fa fa-bars menu-icon"></i>
+        </label>
+    </div>
+</header>

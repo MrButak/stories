@@ -1,11 +1,29 @@
 const Database = require('better-sqlite3');
 
-// Function writes paragraph to the database
-exports.insertParagraph = (paragraph, userId, storiesId) => {
 
-    let db = new Database('public/javascripts/data/stories.db');
-    let new_paragraph = db.prepare('INSERT INTO paragraphs (user_id, stories_id, content) VALUES (?, ?, ?)');
-    new_paragraph.run(userId, storiesId, paragraph);
-    db.close();
+const { Pool, Client } = require('pg')
+config = require('dotenv').config()
+
+const client = new Client({
+    connectionString: process.env.DATABASE_URL,
+    ssl: {
+        rejectUnauthorized: false
+    }
+});
+
+client.connect();
+
+// Function writes paragraph to the database
+exports.insertParagraph = async (paragraph, userName, storiesId) => {
+
+    let dbStmtOne = 'SELECT id from users WHERE user_name ILIKE ($1)';
+    let dbValuesOne = [userName];
+    let userId = await client.query(dbStmtOne, dbValuesOne);
+
+    let dbStmtTwo = 'INSERT INTO paragraphs (content, user_id, stories_id) VALUES ($1, $2, $3)';
+    let dbValuesTwo = [paragraph ,userId.rows[0].id, storiesId];
+    await client.query(dbStmtTwo, dbValuesTwo);
+    console.log(userId.rows[0])
+    console.log('should be userid here')
     return;
 };

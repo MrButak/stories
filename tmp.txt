@@ -1,0 +1,25 @@
+<body>
+    
+    <p>Current user: <%= currentUserName %></p>
+    
+    <div id="storyWrapperMain">
+        <div id="storyWrapper">
+            <h2 class="storyTitleText"><%= story['title'] %></h2>
+            <% story['paragraphs'].forEach(function(para) { %>
+                <p><%= para['content'] %></p>
+            <% }); %>
+        </div>
+        
+    </div>
+    <div id="addToStoryFormWrapperMain">'
+        <form action="/story", method="post">
+            <p>Add to story</p>
+            <textarea name="paragraph_input", cols="60", maxlength="2000", minlength="1", name="addStoryInput", rows="4", placeholder="Contribute to this story", title="Maximum length 2000 characters", required></textarea></textarea>
+            <input type="hidden" name = "storyId" value="<%= story['id'] %>">
+            <br>
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+
+    <%- include('../views/partials/footer.ejs'); %>
+</body>
