@@ -4,7 +4,7 @@ require('dotenv').config({ path: require('find-config')('.env') });
 const client = new Client({
     connectionString: process.env.DATABASE_URL,
     ssl: {
-        ssl: true,
+        // ssl: true,
         rejectUnauthorized: false
     }
 });
@@ -41,11 +41,6 @@ exports.signUpUser = function(req, res, next) {
  
 };
 
-// GET request /login
-exports.log_in = function(req, res, next) {
-
-    res.render('login');
-};
 
 // POST request /login
 exports.checkLogin = async (req, res, next)  => {
@@ -62,15 +57,16 @@ exports.checkLogin = async (req, res, next)  => {
         let userInfo = await client.query(dbTextStmt, dbValues);
         
         
-        req.session.user = userInfo.rows[0].user_name;
+        req.session.user = userInfo.rows[0];
+        console.log(req.session.user)
         console.log('should be a successful login%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%5')
-        res.render('/');
+        res.redirect('/');
     }
 
     else {
 
         // login unsuccessful
-        res.render('login'); // TODO: send failed login error message to views/login
+        res.redirect('login'); // TODO: send failed login error message to views/login
     };
     
 };

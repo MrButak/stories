@@ -63,8 +63,7 @@ router.post('/addstory', (req, res) => {
 router.get('/login', (req, res) => {
 
     if(!handleAuth.isLoggedIn(req, res)) {
-        console.log("shoud be false here!!")
-        users.log_in(req, res)
+        res.render('login');
     }
     
 

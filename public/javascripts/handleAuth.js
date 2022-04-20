@@ -11,7 +11,8 @@ exports.requireLogin = (req, res, next) => {
 
 // Function checks is user is logged in. If so redirects to home page (can use on any route e.g.: keep logged in user from login page)
 exports.isLoggedIn = (req, res, next) => {
-    
+    console.log(req.session);
+    console.log('Should have session information....')
     if(!req.session.user) {
         return false;
     };
