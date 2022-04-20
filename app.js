@@ -35,14 +35,19 @@ app.set('view engine', 'ejs');
 const expressSession = require('express-session');
 app.use(expressSession({
     store: new pgSession({
-      pool : pgPool,                // Connection pool
-      tableName : 'user_sessions'   // Use another table-name than the default "session" one
+      pool : pgPool                // Connection pool
+         // Use another table-name than the default "session" one
       // Insert connect-pg-simple options here
     }),
     secret: process.env.FOO_COOKIE_SECRET,
     resave: false,
+    expired: {
+        clear: true,
+        intervalMs: 1000 * 60 * 60 * 24 //ms = 24 hours
+    },
     cookie: { 
         secure: true,
+        sameSite: true,
         maxAge: 30 * 24 * 60 * 60 * 1000 
     },
     resave: false,
