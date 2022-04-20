@@ -20,6 +20,7 @@ app.use(session({
     store: new (require('connect-pg-simple')(session))({
         conObject: {
             connectionString: process.env.DATABASE_URL,
+            rejectUnauthorized: false
             // ssl: true,
           },
     }),
