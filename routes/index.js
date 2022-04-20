@@ -12,6 +12,7 @@ router.get('/', (req, res) => {
     } 
     else {
         handleAuth.currentUser(req, res);
+        console.log('should be getting all stories here...................')
         stories.getAllStories(req, res);
     };
 });
