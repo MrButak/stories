@@ -63,13 +63,14 @@ exports.checkLogin = async (req, res, next)  => {
         
         
         req.session.user = userInfo.rows[0].user_name;
-        res.redirect('/');
+        console.log('should be a successful login%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%5')
+        res.render('/');
     }
 
     else {
 
         // login unsuccessful
-        res.redirect('login'); // TODO: send failed login error message to views/login
+        res.render('login'); // TODO: send failed login error message to views/login
     };
     
 };

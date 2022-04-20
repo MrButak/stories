@@ -45,6 +45,4 @@ exports.tryLogin = async (username, password) => {
     return false &&
     hashing.comparePassword(password, userInfo.rows[0].encrypted_password);
     
-    
-     
 };
