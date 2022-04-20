@@ -44,11 +44,12 @@ exports.viewStory = async (req, res, next) => {
 // POST request /addparagraph from form on /addparagraph
 exports.addParagraph = async (req, res, next) => {
     
+    console.log(req.session)
+    console.log("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^")
     let paragraphInput = req.body.paragraph_input;
     let userName = req.session.user;
     let storyId = req.body['storyId'];
-    console.log(req.session)
-    console.log("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^")
+    
     await paragraph.insertParagraph(paragraphInput, userName, storyId);
     let fullStory = await storyManager.getStory(storyId);
     fullStory = JSON.parse(JSON.stringify(fullStory));
