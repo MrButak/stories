@@ -9,37 +9,88 @@ var usersRouter = require('./routes/users');
 require('dotenv').config({ path: require('find-config')('.env') });
 var app = express();
 
-var session = require('express-session');
+// var session = require('express-session');
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
+
+
+const pg = require('pg');
+const expressSession = require('express-session');
+const pgSession = require('connect-pg-simple')(expressSession);
+
+const pgPool = new pg.Pool({
+    connectionString: process.env.DATABASE_URL,
+    ssl: {
+        ssl: true,
+        rejectUnauthorized: false
+    }
+});
+
+pgPool.connect();
+
+
+
 app.set('trust proxy', true);
 // app.set('trust proxy', 1);
-app.use(session({
-    store: new (require('connect-pg-simple')(session))({
-        conObject: {
-            connectionString: process.env.DATABASE_URL,
-            rejectUnauthorized: false
-            // ssl: true,
-          },
+
+app.use(expressSession({
+    store: new pgSession({
+      pool : pgPool                // Connection pool
+         // Use another table-name than the default "session" one
+      // Insert connect-pg-simple options here
     }),
-    secret: 'keyboardcat',//process.env.FOO_COOKIE_SECRET,
+    secret: process.env.FOO_COOKIE_SECRET,
     resave: false,
     expired: {
         clear: true,
         intervalMs: 1000 * 60 * 60 * 24 //ms = 24 hours
     },
     cookie: { 
-        // maxAge: 30 * 24 * 60 * 60 * 1000,
         secure: true,
-        sameSite: 'none'
+        sameSite: true,
+        maxAge: 30 * 24 * 60 * 60 * 1000 
     },
-    // resave: false,
+    resave: false,
     saveUninitialized: false
-    // rejectUnauthorized: false
     // Insert express-session options here
 }));
+
+
+
+
+
+
+
+
+
+
+
+// app.use(session({
+//     store: new (require('connect-pg-simple')(session))({
+//         conObject: {
+//             connectionString: process.env.DATABASE_URL,
+//             rejectUnauthorized: false
+//             // ssl: true,
+//           },
+//     }),
+//     secret: 'keyboardcat',//process.env.FOO_COOKIE_SECRET,
+//     resave: false,
+//     expired: {
+//         clear: true,
+//         intervalMs: 1000 * 60 * 60 * 24 //ms = 24 hours
+//     },
+//     cookie: { 
+//         // maxAge: 30 * 24 * 60 * 60 * 1000,
+//         secure: true,
+//         sameSite: 'none'
+//     },
+//     // resave: false,
+//     saveUninitialized: false
+//     // rejectUnauthorized: false
+//     // Insert express-session options here
+// }));
 
 app.use(logger('dev'));
 app.use(express.json());
