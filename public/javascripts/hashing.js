@@ -11,5 +11,4 @@ exports.comparePassword = (password, passwordHash) => {
 
     // will return a boolean value
     return(bcrypt.compareSync(password, passwordHash));
-}
-
+};
