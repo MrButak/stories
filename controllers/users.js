@@ -57,7 +57,7 @@ exports.checkLogin = async (req, res, next)  => {
         req.session.user = userInfo.rows[0];
         console.log(req.session.user)
         console.log('should be a successful login%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%5')
-        res.render('/');
+        res.redirect('/');
     }
 
     else {
