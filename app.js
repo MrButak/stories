@@ -31,7 +31,7 @@ app.use(session({
         // maxAge: 30 * 24 * 60 * 60 * 1000,
         secure: true,
         // sameSite: true 
-    },
+    }
     // resave: false,
     // saveUninitialized: false,
     // rejectUnauthorized: false
