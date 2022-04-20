@@ -26,7 +26,8 @@ exports.currentUser = (req, res, next) => {
         res.locals.userName = null;
         return;  
     };
-    
+    console.log(req.session)
+    console.log('here in handleAuth currentUser(). If no req.session (user), then I need to set up at login')
     // Use this to pass information to the view layer
     res.locals.userName = req.session.user['user_name'];
     
