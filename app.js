@@ -32,17 +32,13 @@ app.use(session({
         // maxAge: 30 * 24 * 60 * 60 * 1000,
         secure: true,
         // sameSite: true 
-    }
+    },
     // resave: false,
-    // saveUninitialized: false,
+    saveUninitialized: false
     // rejectUnauthorized: false
     // Insert express-session options here
 }));
-https
-  .createServer(app)
-  .listen(3000, ()=>{
-    console.log('server is runing at port 4000')
-});
+
 
 app.use(logger('dev'));
 app.use(express.json());
