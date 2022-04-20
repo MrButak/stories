@@ -1,12 +1,10 @@
-const Database = require('better-sqlite3');
-
-
 const { Pool, Client } = require('pg')
 config = require('dotenv').config()
 
 const client = new Client({
     connectionString: process.env.DATABASE_URL,
     ssl: {
+        require: true,
         rejectUnauthorized: false
     }
 });

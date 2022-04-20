@@ -3,13 +3,10 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "node ./bin/www",
-    "dev": "./node_modules/nodemon/bin/nodemon app.js"
+    "start": "node ./bin/www"
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",
-    "better-sqlite3": "^7.4.6",
-    "better-sqlite3-session-store": "0.0.2",
     "connect-pg-simple": "^7.0.0",
     "cookie-parser": "~1.4.4",
     "debug": "~2.6.9",
@@ -20,7 +17,5 @@
     "http-errors": "~1.6.3",
     "morgan": "~1.9.1"
   },
-  "devDependencies": {
-    "nodemon": "^2.0.15"
-  }
+  "devDependencies": {}
 }
