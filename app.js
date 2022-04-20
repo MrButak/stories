@@ -1,5 +1,4 @@
 var createError = require('http-errors');
-const https = require("https");
 var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
@@ -31,7 +30,7 @@ app.use(session({
     cookie: { 
         // maxAge: 30 * 24 * 60 * 60 * 1000,
         secure: true,
-        // sameSite: true 
+        sameSite: 'none'
     },
     // resave: false,
     saveUninitialized: false
