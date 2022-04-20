@@ -16,6 +16,7 @@ var session = require('express-session');
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
+app.set('trust proxy', 1);
 app.use(session({
     store: new (require('connect-pg-simple')(session))({
     // Insert connect-pg-simple options here
@@ -27,13 +28,13 @@ app.use(session({
         intervalMs: 1000 * 60 * 60 * 24 //ms = 24 hours
     },
     cookie: { 
-        maxAge: 30 * 24 * 60 * 60 * 1000,
+        // maxAge: 30 * 24 * 60 * 60 * 1000,
         secure: true,
-        sameSite: true 
+        // sameSite: true 
     },
-    resave: false,
-    saveUninitialized: false,
-    rejectUnauthorized: false
+    // resave: false,
+    // saveUninitialized: false,
+    // rejectUnauthorized: false
     // Insert express-session options here
 }));
 
