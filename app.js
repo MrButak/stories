@@ -20,7 +20,7 @@ app.use(session({
     store: new (require('connect-pg-simple')(session))({
         conObject: {
             connectionString: process.env.DATABASE_URL,
-            ssl: true,
+            // ssl: true,
           },
     }),
     secret: 'keyboardcat',//process.env.FOO_COOKIE_SECRET,
