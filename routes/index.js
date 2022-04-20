@@ -6,18 +6,6 @@ const handleAuth = require('../public/javascripts/handleAuth');
 const stories = require('../controllers/stories');
 
 
-
-// router.post('/', (req, res) => {
-
-//     if(!handleAuth.requireLogin){
-//         res.redirect('/login');
-//     } 
-//     else {
-//         handleAuth.currentUser(req, res);
-//         stories.getAllStories(req, res);
-//     };
-// });
-
 router.get('/', (req, res) => {
     if(!handleAuth.requireLogin(req, res)){
         res.redirect('/login');
@@ -75,9 +63,8 @@ router.post('/addstory', (req, res) => {
 router.get('/login', (req, res) => {
 
     if(!handleAuth.isLoggedIn(req, res)) {
-        console.log("shoud be false here!!")
         users.log_in(req, res)
-    }
+    };
     
 
 });
