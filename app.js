@@ -34,6 +34,7 @@ app.use(session({
     },
     cookie: { 
         maxAge: 30 * 24 * 60 * 60 * 1000,
+        secure: true, // for production environment only (cookies sent to https only)
         sameSite: true 
     }, // 30 days
     resave: false,
@@ -60,10 +61,10 @@ app.use(session({
 //   saveUninitialized: false
 // }
 
-if (app.get('env') === 'production') {
-    app.set('trust proxy', 1) // trust first proxy
-    sess.cookie.secure = true // serve secure cookies
-}
+// if (app.get('env') === 'production') {
+//     app.set('trust proxy', 1) // trust first proxy
+//     session.cookie.secure = true // serve secure cookies
+// }
 
 app.use(logger('dev'));
 app.use(express.json());
