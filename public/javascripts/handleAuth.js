@@ -1,6 +1,5 @@
 // Function check session to see if user is logged in. If not redirect to login page
 exports.requireLogin = (req, res, next) => {
-    
     if(!req.session.user) {
         
         return false
@@ -14,7 +13,6 @@ exports.requireLogin = (req, res, next) => {
 exports.isLoggedIn = (req, res, next) => {
     
     if(!req.session.user) {
-        
         return false;
     };
     
