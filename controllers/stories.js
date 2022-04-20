@@ -1,6 +1,5 @@
 const storyManager = require('../public/javascripts/data/storyManager');
 const paragraph = require('../public/javascripts/data/paragraph');
-const { json } = require('express/lib/response');
 
 exports.getAllStories = async (req, res, next) => {
     
