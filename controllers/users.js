@@ -32,7 +32,7 @@ exports.signUpUser = function(req, res, next) {
     }
     // Username is available
     else {
-        console.log('shoud be getting here to username available at signUpUser()')
+        
         users.writeUserToDatabase(username, password);
         res.redirect('login'); // TODO: send a "signup successfull" message to views/login
     }

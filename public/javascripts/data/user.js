@@ -39,7 +39,7 @@ exports.tryLogin = async (username, password) => {
     let text = 'SELECT * FROM users WHERE user_name ILIKE ($1)';
     let values = [username];
     let userInfo = await client.query(text, values);
-    if(userInfo.length > 0) {
+    if(userInfo.rows.length > 0) {
         return true &&
         hashing.comparePassword(password, userInfo.rows[0].encrypted_password);
     };
