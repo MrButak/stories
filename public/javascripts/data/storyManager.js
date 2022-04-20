@@ -1,4 +1,3 @@
-const Database = require('better-sqlite3');
 const { Pool, Client } = require('pg')
 config = require('dotenv').config()
 
@@ -12,13 +11,11 @@ client.connect();
 
 exports.displayAllStories = async () => {
 
-    
     // create an arry of objects. each obj holds the story title and up to 5 paragraphs
     let storyArry = [];
     let storyObj = {};
     let text = 'SELECT * FROM stories ORDER BY id DESC';
     let allStories = await client.query(text);
-    
     
     // Get the first five paragraphs (if that many) with each story.
     for(let i = 0; i < allStories.rows.length; i++) {

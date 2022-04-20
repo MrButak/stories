@@ -14,12 +14,6 @@ var app = express();
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
-
-
-
-// Create a new database (if not exist) to store user sessions
-// const db = new sqlite("sessions.db", { verbose: console.log });
-
 const session = require('express-session');
 
 app.use(session({
@@ -41,30 +35,6 @@ app.use(session({
     saveUninitialized: false
     // Insert express-session options here
 }));
-
-
-// var sess = {
-//   store: new SqliteStore({
-//     client: db, 
-//     expired: {
-//       clear: true,
-//       intervalMs: 1000 * 60 * 60 * 24 //ms = 24 hours
-//     }
-//   }),
-//   // Can add secret variable from .env file later using 'dotenv'
-//   secret: 'keyboard cat',
-//   cookie: {
-//     maxAge: 1000 * 60 * 60 * 24,
-//     sameSite: true
-//   },
-//   resave: false,
-//   saveUninitialized: false
-// }
-
-// if (app.get('env') === 'production') {
-//     app.set('trust proxy', 1) // trust first proxy
-//     session.cookie.secure = true // serve secure cookies
-// }
 
 app.use(logger('dev'));
 app.use(express.json());

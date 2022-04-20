@@ -85,7 +85,7 @@ router.post('/signup', users.signUpUser);
 router.get('/logout', users.logout);
 router.post('/logout', users.logout);
 
-//user profile
+//user profile // TODO
 router.get('/user/:currentUserName', handleAuth.requireLogin, handleAuth.currentUser, users.userProfile);
 
 
