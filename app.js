@@ -22,7 +22,7 @@ const pgPool = new pg.Pool({
     }
 });
 
-Pool.connect();
+pgPool.connect();
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
