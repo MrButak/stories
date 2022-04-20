@@ -35,16 +35,18 @@ exports.displayAllStories = async () => {
 };
 
 // Function writes a new story (title) to the database
-exports.addStory = async (storyTitle, userId) => {
+exports.addStory = async (storyTitle, userName) => {
 
+    // get user id
+    let dbStmtOne = 'SELECT id FROM users WHERE user_name ILIKE ($1)';
+    let dbValuesOne = [userName];
+    let userId = await client.query(dbStmtOne, dbValuesOne);
+
+    // insert new story title into db
     let text = 'INSERT INTO stories (user_id, title) VALUES ($1, $2)';
-    let values = [userId, storyTitle];
-    let res = await client.query(text, values);
-    console.log(res.rows);
-    console.log('storyManager.js addStory');
-    // let db = new Database('public/javascripts/data/stories.db');
-    // let story = db.prepare('INSERT INTO stories (user_id, title) VALUES (?, ?)').run(userId, storyTitle);
-    // db.close();
+    let values = [userId.rows[0].id, storyTitle];
+    await client.query(text, values);
+    
     return;
 };
 
@@ -72,7 +74,6 @@ exports.getStory = async (storyId) => {
         storyObj['paragraphs'].push(paragraphs.rows[i]);
     };
     
-    
     return(storyObj);
 };
 
@@ -82,11 +83,6 @@ exports.allUserStories = async (userName) => {
     let text = 'SELECT * FROM stories INNER JOIN users ON stories.user_id = users.id WHERE users.user_name LIKE ($1)';
     let values = [userName];
     let res = await client.query(text, values);
-    console.log(res.rows);
-    console.log('storyManager.js allUserStories');
-
-    // let db = new Database('public/javascripts/data/stories.db');
-    // let userStories = db.prepare('SELECT * FROM stories INNER JOIN users ON stories.user_id = users.id WHERE users.user_name LIKE (?)').all(userName);
-    // db.close();
+    
     return(res.rows);
 };

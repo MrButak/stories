@@ -7,8 +7,6 @@ const stories = require('../controllers/stories');
 const res = require('express/lib/response');
 
 
-// home page
-// router.get('/', handleAuth.requireLogin, handleAuth.currentUser, stories.getAllStories);
 
 router.get('/', (req, res) => {
 
@@ -25,14 +23,13 @@ router.get('/', (req, res) => {
 });
 
 
-// view story POST from form on '/ homepage' and submit paragraph on '/story'
+// to add paragraph to story
 router.post('/story', (req, res) => {
-
+    
     if(handleAuth.requireLogin(req, res)) {
 
         handleAuth.currentUser(req, res);
         stories.addParagraph(req, res);
-        stories.viewStory(req, res);
     }
     else {
         res.redirect('/login');

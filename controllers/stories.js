@@ -14,9 +14,9 @@ exports.addStory = function(req, res, next) {
     
     // Idea: send user to the 'add to story' page, so they can start the first paragraph of their new story.
     let storyTitle = req.body.addStoryInput;
-    let userId = req.session.user['id'];
+    let userName = req.session.user;
     
-    storyManager.addStory(storyTitle, userId);
+    storyManager.addStory(storyTitle, userName);
     res.redirect('/');
 };
 
@@ -28,16 +28,13 @@ exports.viewStory = async (req, res, next) => {
     if(req.method == "GET") {
         
         storyId =  req.query['storyId'];
-        
     }
     // POST request
     else {
         
         storyId = req.body['storyId'];
-        
-        
-        
     };
+
     let storyObjOne = await storyManager.getStory(storyId);
     storyObjOne = JSON.parse(JSON.stringify(storyObjOne));
     
@@ -53,9 +50,9 @@ exports.addParagraph = async (req, res, next) => {
     let storyId = req.body['storyId'];
     
     await paragraph.insertParagraph(paragraphInput, userName, storyId);
-    // let fullStory = await storyManager.getStory(storyId);
-    // fullStory = JSON.parse(JSON.stringify(fullStory));
-    // res.render('story', { story: fullStory, currentUserName: userName });
+    let fullStory = await storyManager.getStory(storyId);
+    fullStory = JSON.parse(JSON.stringify(fullStory));
+    res.render('story', { story: fullStory, currentUserName: userName });
     return;
   };
   
