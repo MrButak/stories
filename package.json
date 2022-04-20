@@ -3,12 +3,10 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "node ./bin/www",
-    "heroku-postbuild": "npm start"
+    "start": "node ./bin/www"
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",
-    "better-sqlite3": "^7.4.6",
     "connect-pg-simple": "^7.0.0",
     "cookie-parser": "~1.4.4",
     "debug": "~2.6.9",
