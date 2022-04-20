@@ -9,6 +9,21 @@ var usersRouter = require('./routes/users');
 const dotenv = require("dotenv");
 var app = express();
 
+
+const pg = require('pg');
+const expressSession = require('express-session');
+const pgSession = require('connect-pg-simple')(expressSession);
+
+const pgPool = new pg.Pool({
+    connectionString: process.env.DATABASE_URL,
+    ssl: {
+        ssl: true,
+        rejectUnauthorized: false
+    }
+});
+
+Pool.connect();
+
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
@@ -17,27 +32,42 @@ app.set('view engine', 'ejs');
 
 
 
-const session = require('express-session');
-
-app.use(session({
-    store: new (require('connect-pg-simple')(session))({
-    // Insert connect-pg-simple options here
+const expressSession = require('express-session');
+app.use(expressSession({
+    store: new pgSession({
+      pool : pgPool,                // Connection pool
+      tableName : 'user_sessions'   // Use another table-name than the default "session" one
+      // Insert connect-pg-simple options here
     }),
     secret: process.env.FOO_COOKIE_SECRET,
     resave: false,
-    expired: {
-        clear: true,
-        intervalMs: 1000 * 60 * 60 * 24 //ms = 24 hours
-    },
     cookie: { 
-        maxAge: 30 * 24 * 60 * 60 * 1000,
         secure: true,
-        sameSite: true 
-    }, // 30 days
+        maxAge: 30 * 24 * 60 * 60 * 1000 
+    },
     resave: false,
     saveUninitialized: false
     // Insert express-session options here
 }));
+// app.use(session({
+//     store: new (require('connect-pg-simple')(session))({
+//     // Insert connect-pg-simple options here
+//     }),
+//     secret: process.env.FOO_COOKIE_SECRET,
+//     resave: false,
+//     expired: {
+//         clear: true,
+//         intervalMs: 1000 * 60 * 60 * 24 //ms = 24 hours
+//     },
+//     cookie: { 
+//         maxAge: 30 * 24 * 60 * 60 * 1000,
+//         secure: true,
+//         sameSite: true 
+//     },
+//     resave: false,
+//     saveUninitialized: false
+//     // Insert express-session options here
+// }));
 
 app.use(logger('dev'));
 app.use(express.json());
