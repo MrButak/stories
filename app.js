@@ -10,19 +10,7 @@ require('dotenv').config({ path: require('find-config')('.env') });
 var app = express();
 
 var session = require('express-session');
-// const pg = require('pg');
-// const expressSession = require('express-session');
-// const pgSession = require('connect-pg-simple')(expressSession);
 
-// const pgPool = new pg.Pool({
-//     connectionString: process.env.DATABASE_URL,
-//     ssl: {
-//         ssl: true,
-//         rejectUnauthorized: false
-//     }
-// });
-
-// pgPool.connect();
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
