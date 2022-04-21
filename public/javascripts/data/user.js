@@ -38,7 +38,10 @@ exports.tryLogin = async (username, password) => {
     let text = 'SELECT * FROM users WHERE user_name ILIKE ($1)';
     let values = [username];
     let userInfo = await client.query(text, values);
-    if(userInfo.rows.length > 0 && userInfo.rows[0].user_name.toLowerCase() == username.toLowerCase()) {
+    console.log(password ,userInfo.rows[0].encryptedPassword);
+    console.log('passwords to be compared ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^')
+    if(userInfo.rows.length > 0 && userInfo.rows[0].user_name.toLowerCase() == username.toLowerCase() &&
+    validate.validateUserForm(password, userInfo.rows[0].encryptedPassword)) {
         
         return true;
     };
