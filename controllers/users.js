@@ -49,7 +49,7 @@ exports.checkLogin = async (req, res, next)  => {
     // If login successful
     if(users.tryLogin(username, password) &&
     validate.validateUserForm(username, password)) {
-    
+        console.log('how am I making it here????, this means the password was correct *******************')
         let dbTextStmt = 'SELECT * FROM users WHERE user_name ILIKE ($1)';
         let dbValues = [username];
         let userInfo = await client.query(dbTextStmt, dbValues);
