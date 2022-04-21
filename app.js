@@ -31,7 +31,7 @@ const pgPool = new pg.Pool({
 pgPool.connect();
 
 // app.set('trust proxy', true);
-app.set('trust proxy', 1);
+app.set('trust proxy', 1); // this seem to fix issue with heroku and express-session accessing heroku postgres
 
 app.use(expressSession({
     store: new pgSession({
