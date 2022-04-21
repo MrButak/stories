@@ -39,11 +39,13 @@ exports.tryLogin = async (username, password) => {
     let values = [username];
     let userInfo = await client.query(text, values);
     if(userInfo.rows.length > 0) {
+        console.log('rows longer than 0 ^^^^^^^^^^^^^^^^^^^^^^')
         if(userInfo.rows[0].user_name.toLowerCase() != username.toLowerCase()) {
 
             return false &&
             hashing.comparePassword(password, userInfo.rows[0].encrypted_password);
         };
+        console.log('so the username is the same.........')
         return true &&
         hashing.comparePassword(password, userInfo.rows[0].encrypted_password);
     };
