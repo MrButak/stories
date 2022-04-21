@@ -1,6 +1,7 @@
 require('dotenv').config({ path: require('find-config')('.env') });
 const hashing = require('../hashing');
-const { Pool, Client } = require('pg')
+const { Pool, Client } = require('pg');
+const validate = require('../public/javascripts/validate');
 const client = new Client({
     connectionString: process.env.DATABASE_URL,
     ssl: {
