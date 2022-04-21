@@ -42,7 +42,7 @@ exports.tryLogin = async (username, password) => {
     // console.log(password ,userInfo.rows[0].encryptedPassword);
     console.log('passwords to be compared ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^')
     if(userInfo.rows.length > 0 && userInfo.rows[0].user_name.toLowerCase() == username.toLowerCase() &&
-    validate.validateUserForm(password, userInfo.rows[0].encryptedPassword)) {
+    validate.validateUserForm(password, userInfo.rows[0].encrypted_password)) {
         
         return true;
     };
