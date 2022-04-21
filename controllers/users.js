@@ -44,26 +44,29 @@ exports.checkLogin = async (req, res, next)  => {
 
     let username = req.body.username;
     let password = req.body.password;
-    
+    console.log(users.tryLogin(username, password))
+    console.log('^^^^^^^^^^^^^^^^^^^^^tryLogin()^^^^^^^^^^^^^^^^^^^^^^^^^^')
+    validate.validateUserForm(username, password)
+    console.log('^^^^^^^^^^^^^^^^^^^^^validateUserForm()^^^^^^^^^^^^^^^^^^^^^^^^^^')
     // If login successful
-    if(users.tryLogin(username, password) &&
-    validate.validateUserForm(username, password)) {
+    // if(users.tryLogin(username, password) &&
+    // validate.validateUserForm(username, password)) {
        
-        let dbTextStmt = 'SELECT * FROM users WHERE user_name ILIKE ($1)';
-        let dbValues = [username];
-        let userInfo = await client.query(dbTextStmt, dbValues);
+    //     let dbTextStmt = 'SELECT * FROM users WHERE user_name ILIKE ($1)';
+    //     let dbValues = [username];
+    //     let userInfo = await client.query(dbTextStmt, dbValues);
         
         
-        req.session.user = userInfo.rows[0];
-        res.redirect('/');
-        return;
-    }
+    //     req.session.user = userInfo.rows[0];
+    //     res.redirect('/');
+    //     return;
+    // }
 
-    else {
+    // else {
         
-        // login unsuccessful
-        res.redirect('login'); // TODO: send failed login error message to views/login
-    };
+    //     // login unsuccessful
+    //     res.redirect('login'); // TODO: send failed login error message to views/login
+    // };
     
 };
 
