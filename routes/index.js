@@ -65,9 +65,10 @@ router.get('/login', (req, res) => {
     if(!handleAuth.isLoggedIn(req, res)) {
 
         res.render('login');
+        return;
     };
+    res.redirect('/')
 
-        res.redirect('/');
 });
 
 router.post('/login', (req, res) => {

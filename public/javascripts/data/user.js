@@ -1,6 +1,6 @@
 require('dotenv').config({ path: require('find-config')('.env') });
 const hashing = require('../hashing');
-const { Pool, Client } = require('pg')
+const { Pool, Client } = require('pg');
 const client = new Client({
     connectionString: process.env.DATABASE_URL,
     ssl: {
@@ -38,7 +38,11 @@ exports.tryLogin = async (username, password) => {
     let text = 'SELECT * FROM users WHERE user_name ILIKE ($1)';
     let values = [username];
     let userInfo = await client.query(text, values);
-    if(userInfo.rows.length > 0 && userInfo.rows[0].user_name.toLowerCase() == username.toLowerCase()) {
+    console.log(userInfo.rows[0])
+    // console.log(password ,userInfo.rows[0].encryptedPassword);
+    console.log('passwords to be compared ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^')
+    if(userInfo.rows.length > 0 && userInfo.rows[0].user_name.toLowerCase() == username.toLowerCase() &&
+    hashing.comparePassword(password, userInfo.rows[0].encrypted_password)) {
         
         return true;
     };
