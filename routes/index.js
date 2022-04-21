@@ -68,9 +68,6 @@ router.get('/login', (req, res) => {
     };
     res.redirect('/')
 
-
-    
-
 });
 
 router.post('/login', (req, res) => {

@@ -49,7 +49,9 @@ exports.checkLogin = async (req, res, next)  => {
     // If login successful
     let formValid = validate.validateUserForm(username, password);
     let loginValid = await users.tryLogin(username, password);
-
+    console.log(formValid)
+    console.log(loginValid)
+    console.log('^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^')
     if(formValid && loginValid) {
 
         let dbTextStmt = 'SELECT * FROM users WHERE user_name ILIKE ($1)';
