@@ -3,7 +3,7 @@ const paragraph = require('../public/javascripts/data/paragraph');
 
 exports.getAllStories = async (req, res, next) => {
     
-    let currentUserName = req.session.user;
+    let currentUserName = req.session.user.user_name;
     let allStories = await storyManager.displayAllStories();
     allStories = JSON.parse((JSON.stringify(allStories)));
     res.render('index', { stories: allStories, currentUserName: currentUserName});
@@ -13,7 +13,7 @@ exports.addStory = function(req, res, next) {
     
     // Idea: send user to the 'add to story' page, so they can start the first paragraph of their new story.
     let storyTitle = req.body.addStoryInput;
-    let userName = req.session.user;
+    let userName = req.session.user.user_name;
     
     storyManager.addStory(storyTitle, userName);
     res.redirect('/');
@@ -21,7 +21,7 @@ exports.addStory = function(req, res, next) {
 
 exports.viewStory = async (req, res, next) => {
     
-    let currentUserName = req.session.user['user_name'];
+    let currentUserName = req.session.user.user_name;
     let storyId;
     // GET request
     if(req.method == "GET") {
@@ -43,9 +43,9 @@ exports.viewStory = async (req, res, next) => {
 
 // POST request /addparagraph from form on /addparagraph
 exports.addParagraph = async (req, res, next) => {
-    
+
     let paragraphInput = req.body.paragraph_input;
-    let userName = req.session.user;
+    let userName = req.session.user.user_name;
     let storyId = req.body['storyId'];
     
     await paragraph.insertParagraph(paragraphInput, userName, storyId);

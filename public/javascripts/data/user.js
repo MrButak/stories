@@ -1,9 +1,10 @@
-const dotenv = require("dotenv");
+require('dotenv').config({ path: require('find-config')('.env') });
 const hashing = require('../hashing');
 const { Pool, Client } = require('pg')
 const client = new Client({
-    connectionString: 'postgres://postgres:postgres@localhost:5432/stories',//process.env.DATABASE_URL,
+    connectionString: process.env.DATABASE_URL,
     ssl: {
+        ssl: true,
         rejectUnauthorized: false
     }
 });
@@ -37,13 +38,9 @@ exports.tryLogin = async (username, password) => {
     let text = 'SELECT * FROM users WHERE user_name ILIKE ($1)';
     let values = [username];
     let userInfo = await client.query(text, values);
-    if(userInfo.length > 0) {
-        return true &&
-        hashing.comparePassword(password, userInfo.rows[0].encrypted_password);
+    if(userInfo.rows.length > 0 && userInfo.rows[0].user_name.toLowerCase() == username.toLowerCase()) {
+        
+        return true;
     };
-    return false &&
-    hashing.comparePassword(password, userInfo.rows[0].encrypted_password);
-    
-    
-     
+    return false;
 };

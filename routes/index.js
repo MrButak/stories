@@ -63,8 +63,13 @@ router.post('/addstory', (req, res) => {
 router.get('/login', (req, res) => {
 
     if(!handleAuth.isLoggedIn(req, res)) {
+
+        res.render('login');
+    }
+
         users.log_in(req, res)
     };
+
     
 
 });

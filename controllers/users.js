@@ -1,9 +1,10 @@
 const { Pool, Client } = require('pg')
-const dotenv = require("dotenv");
+require('dotenv').config({ path: require('find-config')('.env') });
 
 const client = new Client({
-    connectionString: 'postgres://postgres:postgres@localhost:5432/stories',//process.env.DATABASE_URL,
+    connectionString: process.env.DATABASE_URL,
     ssl: {
+        ssl: true,
         rejectUnauthorized: false
     }
 });
@@ -31,42 +32,35 @@ exports.signUpUser = function(req, res, next) {
     }
     // Username is available
     else {
-        console.log('shoud be getting here to username available at signUpUser()')
+        
         users.writeUserToDatabase(username, password);
         res.redirect('login'); // TODO: send a "signup successfull" message to views/login
-    }
-
- 
- 
+    };
 };
 
-// GET request /login
-exports.log_in = function(req, res, next) {
-
-    res.render('login');
-};
-
+// TODO: Can login with wrong password
 // POST request /login
 exports.checkLogin = async (req, res, next)  => {
 
     let username = req.body.username;
     let password = req.body.password;
     
+
     // If login successful
-    if(users.tryLogin(username, password) &&
-    validate.validateUserForm(username, password)) {
-    
+    let formValid = validate.validateUserForm(username, password);
+    let loginValid = await users.tryLogin(username, password);
+
+    if(formValid && loginValid) {
+
         let dbTextStmt = 'SELECT * FROM users WHERE user_name ILIKE ($1)';
         let dbValues = [username];
         let userInfo = await client.query(dbTextStmt, dbValues);
-        
-        
-        req.session.user = userInfo.rows[0].user_name;
+        req.session.user = userInfo.rows[0];
         res.redirect('/');
     }
 
     else {
-
+        
         // login unsuccessful
         res.redirect('login'); // TODO: send failed login error message to views/login
     };
@@ -90,6 +84,7 @@ exports.validate = (req, res) => {
 
 // GET request
 exports.userProfile = (req, res) => {
-    let currentUser = req.query['username'];
+    // let currentUser = req.query['username'];
+    
     res.render('user', { currentuser: currentUser, userstories: storyManager.allUserStories(currentUser) });
 };
