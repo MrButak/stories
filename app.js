@@ -18,40 +18,20 @@ app.set('view engine', 'ejs');
 
 const pg = require('pg');
 const expressSession = require('express-session');
-const pgSession = require('connect-pg-simple')(expressSession);
-
-const pgPool = new pg.Pool({
-    connectionString: process.env.DATABASE_URL,
-    ssl: {
-        ssl: true,
-        rejectUnauthorized: false
-    }
-});
-
-pgPool.connect();
-
-// app.set('trust proxy', true);
-app.set('trust proxy', 1); // this seem to fix issue with heroku and express-session accessing heroku postgres
 
 app.use(expressSession({
-    store: new pgSession({
-      pool : pgPool
-      
-    }),
-    secret: process.env.FOO_COOKIE_SECRET,
+
+    secret: 'keyboardcat',
     resave: false,
     expired: {
         clear: true,
         intervalMs: 1000 * 60 * 60 * 24 //ms = 24 hours
     },
     cookie: { 
-        secure: true,
-        sameSite: true,
         maxAge: 30 * 24 * 60 * 60 * 1000 
     },
     resave: false,
     saveUninitialized: false
-    // Insert express-session options here
 }));
 
 app.use(logger('dev'));

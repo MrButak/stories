@@ -4,7 +4,7 @@ require('dotenv').config({ path: require('find-config')('.env') });
 const client = new Client({
     connectionString: process.env.DATABASE_URL,
     ssl: {
-        ssl: true,
+        // ssl: true,
         rejectUnauthorized: false
     }
 });
