@@ -38,13 +38,14 @@ exports.signUpUser = function(req, res, next) {
     };
 };
 
-
+// TODO: Can login with wrong password
 // POST request /login
 exports.checkLogin = async (req, res, next)  => {
 
     let username = req.body.username;
     let password = req.body.password;
-    
+    console.log(username, password);
+    console.log('debugging login with wrong password. Username and password ^^^');
     // If login successful
     if(users.tryLogin(username, password) &&
     validate.validateUserForm(username, password)) {
