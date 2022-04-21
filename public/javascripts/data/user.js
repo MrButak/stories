@@ -44,8 +44,9 @@ exports.tryLogin = async (username, password) => {
 
             return false;// &&
             //hashing.comparePassword(password, userInfo.rows[0].encrypted_password);
-        }
-        else if(hashing.comparePassword(password, userInfo.rows[0].encrypted_password)) {
+        };
+        if(hashing.comparePassword(password, userInfo.rows[0].encrypted_password)) {
+            console.log('so the freaking password matches ????????????????!!!!!!!!!!!!!!!!!!!!!!!!!!111')
             return true
         };
         // &&
