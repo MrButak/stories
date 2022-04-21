@@ -14,7 +14,7 @@ exports.isLoggedIn = (req, res, next) => {
         return false;
     };
     
-    res.redirect('/');
+    return true;
 };
 
 exports.currentUser = (req, res, next) => {
